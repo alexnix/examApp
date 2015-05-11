@@ -1,0 +1,55 @@
+<div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
+
+<div class="container">
+	<div class="row">
+		<span class="pull-right">
+			<button class="btn red" ng-disabled="timeUp" ng-clikc="submitExam()">Submit</button>
+		</span>
+	</div>
+	<div class="row">
+		<span>
+			Question No {{questionNo()}}
+		</span>
+		<span class="pull-right">
+			Remaining Time <timer seconds="exam.test_duration"></timer>
+		</span>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col-sm-4 question-description">
+			<h3>Description of Question</h3>
+			<p ng-bind-html="question.text"></p>
+		</div>
+		<div class="col-sm-4">
+			<h3>Select Answer</h3>
+			<p ng-repeat="option in question.options">
+		      <input type="checkbox" id="{{$index}}" ng-model="option.value"/>
+		      <label for="{{$index}}">{{option.text}}</label>
+		    </p>		    
+		</div>
+		<div class="col-sm-4 questions-tab">
+			<h3>All Questions</h3>
+			<div class="question-label card" 
+				ng-repeat="q in exam.questions"
+				ng-click="moveTo(q)"
+				ng-class="isInactive($index)">
+				{{$index+1}}
+			</div>
+
+			<div class="clearfix"></div>
+
+			<button class="btn blue waves waves-effect" 
+					ng-disabled="isFirstQuestion()"
+					ng-click="previous()">
+						<i class="fa fa-chevron-left"></i> Previous
+			</button>
+			<button class="btn blue waves waves-effect"
+					ng-disabled="isLastQuestion()"
+					ng-click="next()">
+						Next <i class="fa fa-chevron-right"></i>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

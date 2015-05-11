@@ -1,0 +1,38 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+
+  <section>
+    <div class="row big-tagline">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate doloremque quasi, voluptatem ut, impedit, quaerat aliquam aut asperiores libero dolorum assumenda maxime, hic ratione. Quidem possimus accusamus, esse magni recusandae.
+    </div>
+  </section>
+
+  <section class="quiz-preview">
+       <div class="row">
+        <div class="col top s12">
+          <ul class="tabs teal-text">
+            <li class="tab col s3"><a class="active" href="#test1">Tab 1</a></li>
+            <li class="tab col s3"><a href="#test2">Tab 2</a></li>
+            <li class="tab col s3"><a href="#test3">Tab 3</a></li>
+            <li class="tab col s3"><a href="#test4">Tab 4</a></li>
+          </ul>
+        </div>
+        <div id="test1" class="col s12">
+          <quiz-card ng-repeat="test in tests"></quiz-card>
+        </div>
+        <div id="test2" class="col s12">
+          <quiz-card ng-repeat="test in tests2"></quiz-card>
+        </div>
+        <div id="test3" class="col s12">
+          <quiz-card ng-repeat="test in tests3"></quiz-card>
+        </div>
+        <div id="test4" class="col s12">
+          Some more test here.
+        </div>
+      </div>
+  </section>
+  
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

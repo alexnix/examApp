@@ -1,0 +1,11 @@
+<div class="array-input-container">
+    <div class="array-input">
+    	<input type="text" ng-keyup="addTag($event)" ng-model="newTag" placeholder="{{placeholder}}">
+    </div>
+
+    <div class="array-input-tags">
+        <div class="tag" ng-repeat="tag in tags track by $index">
+        	{{tag}} <i ng-click='removeTag($index)' class="fa fa-close"></i>
+        </div>
+    </div>
+</div>
