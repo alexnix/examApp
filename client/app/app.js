@@ -12,4 +12,5 @@ angular.module('quizPortalApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+    
   });

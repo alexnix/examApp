@@ -1,0 +1,118 @@
+<div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
+
+<div class="container page admin">
+	<section class="edit-panel">
+		<h2>Exam Dretails</h2>
+		<div class="panel exam-details">
+			<div class="form-item">
+				<p>Exam Name</p>
+				<input type="text" ng-model="exam.name">
+			</div>
+
+			<div class="form-item">
+				<p>Exam Description</p>
+				<textarea ng-model="exam.description"></textarea>
+			</div>
+
+			<div class="form-item">
+				<p>Exam Duration</p>
+				 <select ng-model="exam.duration" class=" browser-default">
+				 <option value="0">Select Duration</option>
+			      <option value="60">One Minute</option>
+			      <option value="600">10 Minutes</option>
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam deserunt dolores, dignissimos expedita eos, placeat voluptates autem, similique excepturi facilis quas eveniet? Odio labore veritatis, reiciendis incidunt voluptatem sit laudantium.
+			      <option value="1800">30 Minutes</option>
+			    </select>
+			</div>
+
+			<div class="form-item">
+				<p>Exam Tags</p>
+				<array-input tags="exam.tags" placeholder="Add Tag Andd Press Enter"></array-input>
+			</div>
+		</div>
+
+		<h2>Questions</h2>
+		
+		<div ng-repeat="question in exam.questions" class="panel one-question form-item">
+			<div class="row one-question-top">
+				<div class="col-xs-10">
+					{{question.text}}
+				</div>
+
+				<div class="col-xs-2 button">
+					<i class="fa fa-minus pull-right" ng-click="toggle($event)"></i>
+				</div>
+			</div>
+
+			<div class="one-question-content">
+				<p>
+					Question Text
+					<span class="pull-right remove-btn" ng-click="removeQuestion($index)"><i class="fa fa-times"></i> Remove Question</span>
+				</p>
+				<input type="text" ng-model="question.text">
+
+				<p>
+					Question Options
+					<span ng-click="addOption(question)" class="btn add-option"><i class="fa fa-plus"></i> Add Option</span>
+				</p>
+
+				<div ng-repeat="option in question.options">
+					
+					<p>
+						Option Text
+						<span class="pull-right remove-btn" ng-click="removeOption(question, $index)"><i class="fa fa-times"></i> Remove Option</span>
+					</p>
+					<input type="text" ng-model="option.text">
+					<div class="">
+						<p>
+					      <input type="checkbox" id="{{$parent.$index}}-{{$index}}" ng-model="option.isCorrect"/>
+					      <label for="{{$parent.$index}}-{{$index}}">Is Correct</label>
+					    </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<button class="btn" ng-click="addQuestion()"><i class="fa fa-plus"></i> Add Question</button>
+
+		<div class="clearfix"></div>
+		<hr/>
+		<button class="btn grey" ng-click="cancel()">Cancel</button>
+		<button class="btn red" ng-click="save()" ng-show="isNewExam">Publish Exam</button>
+		<button class="btn red" ng-click="update()" ng-hide="isNewExam">Update Exam</button>
+		<button class="btn red pull-right" ng-click="delete()" ng-hide="isNewExam"><i class="fa fa-times"></i> Remove Exam</button>
+	</section>
+
+	<div class="clearfix"></div>
+	
+	<section>
+		<div class="col-md-4 col-sm-6">
+			<div class="test-card card">
+				<div class="top">
+					<h2>New Exam</h2>
+					<p>
+						Add new Exam
+					</p>
+					<div class="clearfix"></div>
+				</div>
+				<a ng-click="newExam()" class="waves waves-effect waves-light teal">Clcik Add A New Exam</a>
+			</div>
+		</div>
+
+		<div class="col-md-4 col-sm-6" ng-repeat="test in tests">
+			<div class="test-card card">
+				<div class="top">
+					<h2>{{test.name}}</h2>
+					<p>
+						{{test.description}}
+					</p>
+					<div class="clearfix"></div>
+				</div>
+				<a ng-click="getExam(test._id)" class="waves waves-effect waves-light">Clcik to Edit</a>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

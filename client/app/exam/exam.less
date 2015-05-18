@@ -1,28 +1,41 @@
-div.questions-tab {
-	div.question-label.active {
-		float: left;
-		display: inline-block;
-		line-height: 0px;
-		padding: 20px;
-		margin: 5px;
+div.exam-view {
+	font-size: 18px;
+	label {
+		font-size: 15px !important;
+	}
+	div.questions-tab {
+		div.question-label.active {
+			float: left;
+			display: inline-block;
+			line-height: 0px;
+			padding: 20px;
+			margin: 5px;
+		}
+
+		div.question-label.inactive {
+			float: left;
+			display: inline-block;
+			line-height: 0px;
+			padding: 20px;
+			margin: 5px;
+		}
+
+
+		button {
+			margin-top: 15px;
+		}
 	}
 
-	div.question-label.inactive {
-		float: left;
-		display: inline-block;
-		line-height: 0px;
-		padding: 20px;
-		margin: 5px;
+	div.question-description {
+		img {
+			max-width: 100%;
+		}
 	}
 
-
-	button {
-		margin-top: 15px;
-	}
-}
-
-div.question-description {
-	img {
-		max-width: 100%;
+	div.key-wise-nav {
+		border: 1px solid #dfdfdf;
+		padding: 10px;
+		overflow: auto;
+		margin-top: 10px;
 	}
 }

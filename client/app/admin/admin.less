@@ -1,0 +1,49 @@
+div.admin {
+	div.exam-details, div.one-question {
+		padding: 15px;
+	} 
+
+	section.edit-panel {
+		display: none;
+	}
+	
+	span {
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: normal;
+	}
+
+	span.remove-btn {
+		color: red;
+	}
+
+	div.one-question-top {
+		margin-bottom: 0px;
+		div.button {
+			cursor: pointer;
+		}
+	}
+
+	div.form-item {
+		margin-bottom: 20px;
+		p {
+			font-weight: bold;
+			font-size: 17px;
+		}
+
+		input[type=text], textarea, select {
+			background-color: white;
+			border: 1px solid #dfdfdf;
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 14px;
+			width: 97%;
+			&:focus {
+				border-bottom-color: #dfdfdf;
+			}
+		}
+		textarea {
+			height: 100px;
+		}
+	}
+}

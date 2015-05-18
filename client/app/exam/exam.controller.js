@@ -1,34 +1,49 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('ExamCtrl', function ($scope, Timer) {
-  	
-  	$scope.exam = {
-    	id: '4gVh7Q80r', 
-    	test_duration: 120000,
-    	name: 'Demo Exam',
-    	questions:[{
-    		text: "Select the frontend technologies.", 
-    		options:[{
-    			value: false, text :"CSS"}, {
-    			value: false, text :"Sockets"}, {
-    			value: false, text :"HTML"}, {
-    			value: false, text :"MySQL Connectors"}]
-    	}, {text: "Question 2", 
-    		options:[{
-    			value: false, text :"Option 0"}, {
-    			value: false, text :"Option 1"}, {
-    			value: false, text :"Option 2"}, {
-    			value: false, text :"Option 3"}]
-    	}, {
-    		text: "What does the following image represent? <img src='http://i.stack.imgur.com/88cpr.jpg'/>",
-    		options: [{
-    			value: false, text :"A tree"}, {
-    			value: false, text :"A simple chained list"}, {
-    			value: false, text :"The Android Lifecycle"}, {
-    			value: false, text :"No ideea"}],
-    	}],
-    };
+  .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams) {
+
+  	// $scope.exam = {
+   //  	id: '4gVh7Q80r', 
+   //  	test_duration: 120000,
+   //  	name: 'Demo Exam',
+   //  	questions:[{
+   //  		text: "Select the frontend technologies.", 
+   //  		options:[{
+   //  			value: false, text :"CSS"}, {
+   //  			value: false, text :"Sockets"}, {
+   //  			value: false, text :"HTML"}, {
+   //  			value: false, text :"MySQL Connectors"}]
+   //  	}, {text: "Question 2", 
+   //  		options:[{
+   //  			value: false, text :"Option 0"}, {
+   //  			value: false, text :"Option 1"}, {
+   //  			value: false, text :"Option 2"}, {
+   //  			value: false, text :"Option 3"}]
+   //  	}, {
+   //  		text: "What does the following image represent? <img src='http://i.stack.imgur.com/88cpr.jpg'/>",
+   //  		options: [{
+   //  			value: false, text :"A tree"}, {
+   //  			value: false, text :"A simple chained list"}, {
+   //  			value: false, text :"The Android Lifecycle"}, {
+   //  			value: false, text :"No ideea"}],
+   //  	}],
+   //  };
+
+   
+    $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
+    	console.log(res.data);
+    	$scope.exam = res.data;
+	   	Timer.Init($scope.exam.test_duration/1000, function(){
+	  		$scope.timeUp = true;
+			alert("Time Up");
+		});
+
+		Timer.Start();
+
+	    $scope.question = $scope.exam.questions[0];
+	  	$scope.page_title = $scope.exam.name;
+    });
 
   	$scope.$on('$stateChangeStart', 
 	function(event, toState, toParams, fromState, fromParams){ 
@@ -44,15 +59,7 @@ angular.module('quizPortalApp')
 
 
 
-  	Timer.Init($scope.exam.test_duration/1000, function(){
-  		$scope.timeUp = true;
-		alert("Time Up");
-	});
 
-	Timer.Start();
-
-    $scope.question = $scope.exam.questions[0];
-  	$scope.page_title = $scope.exam.name;
 
   	$scope.submitExam = function(){
   		alert(1);
@@ -89,5 +96,14 @@ angular.module('quizPortalApp')
     		return "inactive grey lighten-1";
     	else
     		return "active waves waves-effect grey lighten-2";
-    }
+    };
+
+    $scope.submitExam = function(){
+    	if( !$scope.timeUp === true )
+    		if( ! confirm('Are you sure you want to finish exam ahead of time ?') )
+    			return false;
+
+    	alert(1);
+    };
+
   });
