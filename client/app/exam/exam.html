@@ -10,16 +10,21 @@
 	<div class="container-fluid">
 		<span>
 			Question No {{questionNo()}}
+			
 		</span>
 		<span class="pull-right">
-			Remaining Time <timer seconds="exam.test_duration"></timer>
+			Remaining Time {{ticker.seconds | timer}}
 		</span>
 	</div>
 	<hr/>
 	<div class="row">
 		<div class="col-sm-6 question-description">
-			<h3>Description of Question</h3>
+			<h3>
+				Description of Question
+			</h3>
+
 			<p ng-bind-html="question.text"></p>
+			<small>{{question.marks}} marks</small>
 		</div>
 		<div class="col-sm-3">
 			<h3>Select Answer</h3>
@@ -47,7 +52,14 @@
 				<div class="question-label card" 
 					ng-repeat="q in exam.questions"
 					ng-click="moveTo(q)"
-					ng-class="isInactive($index)">
+					ng-class="{
+						'inactive grey lighten-1': isInactive($index),
+						'active waves waves-effect grey lighten-2': !isInactive($index),
+						'seen': q.seen,
+						'touched': touched(q),
+						'correct': isCorrect($index) && timeUp,
+						'incorrect': !isCorrect($index) && timeUp,
+					}">
 					{{$index+1}}
 				</div>
 			</div>

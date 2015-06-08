@@ -8,6 +8,10 @@
  * App-wide Styles
  */
 
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -16,7 +20,7 @@
 }
 
 body {
-	background-image: url('../assets/handmadepaper.png');
+	background-image: url('../assets/images/handmadepaper.png');
 }
 
 hr {
@@ -26,10 +30,12 @@ hr {
 // injector
 @import 'admin/admin.less';
 @import 'dashboard/dashboard.less';
+@import 'directives/arrayDisplay/arrayDisplay.less';
 @import 'directives/arrayInput/arrayInput.less';
 @import 'directives/quiz-card/quiz-card.less';
 @import 'exam/exam.less';
 @import 'main/main.less';
+@import 'profile-view/profile-view.less';
 @import 'profile/profile.less';
 @import 'modal/modal.less';
 @import 'navbar/navbar.less';

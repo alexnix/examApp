@@ -1,109 +1,103 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams) {
-
-  	// $scope.exam = {
-   //  	id: '4gVh7Q80r', 
-   //  	test_duration: 120000,
-   //  	name: 'Demo Exam',
-   //  	questions:[{
-   //  		text: "Select the frontend technologies.", 
-   //  		options:[{
-   //  			value: false, text :"CSS"}, {
-   //  			value: false, text :"Sockets"}, {
-   //  			value: false, text :"HTML"}, {
-   //  			value: false, text :"MySQL Connectors"}]
-   //  	}, {text: "Question 2", 
-   //  		options:[{
-   //  			value: false, text :"Option 0"}, {
-   //  			value: false, text :"Option 1"}, {
-   //  			value: false, text :"Option 2"}, {
-   //  			value: false, text :"Option 3"}]
-   //  	}, {
-   //  		text: "What does the following image represent? <img src='http://i.stack.imgur.com/88cpr.jpg'/>",
-   //  		options: [{
-   //  			value: false, text :"A tree"}, {
-   //  			value: false, text :"A simple chained list"}, {
-   //  			value: false, text :"The Android Lifecycle"}, {
-   //  			value: false, text :"No ideea"}],
-   //  	}],
-   //  };
-
+  .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams, ngDialog) {
    
-    $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
-    	console.log(res.data);
-    	$scope.exam = res.data;
-	   	Timer.Init($scope.exam.test_duration/1000, function(){
-	  		$scope.timeUp = true;
+  // App Logic
+
+  $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
+  	$scope.exam = res.data;
+
+   	Timer.Init($scope.exam.duration, function(){
+  		$scope.timeUp = true;
 			alert("Time Up");
 		});
 
+    $scope.ticker = Timer.Ticker();
 		Timer.Start();
 
-	    $scope.question = $scope.exam.questions[0];
-	  	$scope.page_title = $scope.exam.name;
-    });
+    $scope.question = $scope.exam.questions[0];
+    $scope.question.seen = true;
+  	$scope.page_title = $scope.exam.name;
+  });
 
-  	$scope.$on('$stateChangeStart', 
-	function(event, toState, toParams, fromState, fromParams){ 
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
 		if( !$scope.timeUp === true )
 		    if( !confirm("Are you sure you want to leave exam ?") )
 		    	event.preventDefault();
-	    
 	});
 
-  	$scope.$on("$destroy", function(){
-  		Timer.Stop();
+	$scope.$on("$destroy", function(){
+		Timer.Cancel();
+	});
+
+  $scope.submitExam = function(){
+    if( !$scope.timeUp === true )
+      if( ! confirm('Are you sure you want to finish exam ahead of time ?') )
+        return false;
+    $http.post('/api/exam/submit', $scope.exam).then(function(res){
+      Timer.Cancel();
+      $scope.timeUp = true;
+      console.log(res.data);
+      ngDialog.open({
+        template: "<h4>Exam Checked</h4><p>Your score is <b>"+res.data.score+"</b></p>",
+        plain: true,
+      });
+      results = res.data.results;
+    });
+  };
+
+  // UI Logic
+  $scope.moveTo = function(q) {
+  	$scope.question = q;
+  	q.seen = true;
+  };
+
+  $scope.isLastQuestion = function() {
+  	return $scope.exam.questions.indexOf($scope.question) == $scope.exam.questions.length-1;
+  };
+
+  $scope.isFirstQuestion = function() {
+  	return $scope.exam.questions.indexOf($scope.question) == 0;
+  };
+
+  $scope.next = function () {
+  	var index = $scope.exam.questions.indexOf($scope.question);
+  	$scope.question = $scope.exam.questions[index + 1];
+  	$scope.question.seen = true;
+  };
+
+  $scope.previous = function () {
+  	var index = $scope.exam.questions.indexOf($scope.question);
+  	$scope.question = $scope.exam.questions[index - 1];
+  	$scope.question.seen = true;
+  };
+
+  $scope.questionNo = function () {
+    if( $scope.exam )
+      return $scope.exam.questions.indexOf($scope.question) + 1;
+  };
+
+  $scope.isInactive = function(index){
+  	if( index ==  $scope.questionNo() - 1 ) 
+  		return true;
+  	else
+  		return false;
+  };
+
+  $scope.touched = function(q){
+  	var flag = false;
+  	q.options.forEach(function(option){
+  		if( option.value == true )
+  			flag = true;
   	});
+  	return flag;
+  };
 
+  var results = null;
+  $scope.isCorrect = function(index) {
+    if(results)
+      return results[index];
+  }
 
-
-
-
-  	$scope.submitExam = function(){
-  		alert(1);
-  	}
-
-    $scope.moveTo = function(q) {
-    	$scope.question = q;
-    };
-
-    $scope.isLastQuestion = function() {
-    	return $scope.exam.questions.indexOf($scope.question) == $scope.exam.questions.length-1;
-    };
-
-    $scope.isFirstQuestion = function() {
-    	return $scope.exam.questions.indexOf($scope.question) == 0;
-    };
-
-    $scope.next = function () {
-    	var index = $scope.exam.questions.indexOf($scope.question);
-    	$scope.question = $scope.exam.questions[index + 1];
-    };
-
-    $scope.previous = function () {
-    	var index = $scope.exam.questions.indexOf($scope.question);
-    	$scope.question = $scope.exam.questions[index - 1];
-    };
-
-    $scope.questionNo = function () {
-    	return $scope.exam.questions.indexOf($scope.question) + 1;
-    };
-
-    $scope.isInactive = function(index){
-    	if( index ==  $scope.questionNo() - 1 ) 
-    		return "inactive grey lighten-1";
-    	else
-    		return "active waves waves-effect grey lighten-2";
-    };
-
-    $scope.submitExam = function(){
-    	if( !$scope.timeUp === true )
-    		if( ! confirm('Are you sure you want to finish exam ahead of time ?') )
-    			return false;
-
-    	alert(1);
-    };
-
-  });
+});

@@ -4,20 +4,36 @@ div.exam-view {
 		font-size: 15px !important;
 	}
 	div.questions-tab {
-		div.question-label.active {
+		div.question-label {
+		
 			float: left;
 			display: inline-block;
 			line-height: 0px;
 			padding: 20px;
 			margin: 5px;
+
+			border-bottom: 5px solid white;
+
 		}
 
-		div.question-label.inactive {
-			float: left;
-			display: inline-block;
-			line-height: 0px;
-			padding: 20px;
-			margin: 5px;
+		div.question-label.seen {
+			border-bottom: 5px solid black;
+		}
+
+		div.question-label.seen {
+			border-bottom: 5px solid transparent;
+		}
+
+		div.question-label.touched {
+			border-bottom: 5px solid #2196F3;
+		}
+
+		div.question-label.correct {
+			border-bottom: 5px solid #4caf50;
+		}
+
+		div.question-label.incorrect {
+			border-bottom: 5px solid #f44336;
 		}
 
 

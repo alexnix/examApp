@@ -6,6 +6,9 @@ angular.module('quizPortalApp')
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        data: {
+        	isPrivate: false,
+        }
       });
   });

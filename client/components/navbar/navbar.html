@@ -1,51 +1,75 @@
-<div class="container navbar-wrapper">
-  <div class="col-sm-2 logo">
-    <img src="http://rebelstoragegrid.com/wp-content/uploads/2013/12/rebel-logo-371x400.png" />
-  </div>
-  <div class="col-sm-10">
+<div class="container main navbar-wrapper">
+  
+  <div class="col-sm-10 big-left">
+    <div class="row">
+      <div class="col-sm-2 logo">
+        <img src="https://www.openmicroscopy.org/site/support/ome-artwork/ome-logo-black-200.png/image_preview" />
+      </div>
+      <div class="col-sm-10">
+        <div class="navbar navbar-default navbar-static-top navbar-right" ng-controller="NavbarCtrl">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="navbar-brand visible-xs">quiz-portal</a>
+            </div>
+            <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav">
+                <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+                    <a ng-href="{{item.link}}">{{item.title}}</a>
+                </li>
+                <li>
+                    <a class="modal-trigger" href="#modal1">Login/Register</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="container-fluid">
+
+        <carousel interval="5000">
+          <slide>
+            <img ng-src="https://www.mountaingoatsoftware.com/uploads/blog/ExamAnswerSheet2977380Small.jpg" style="margin:auto;">
+          </slide>
+          <slide>
+            <img ng-src="http://tutorhub.wpengine.com/wp-content/uploads/2012/03/exams1.jpg" style="margin:auto;">
+          </slide>
+
+        </carousel>
+
+
+      </div>
+    </div>
+  
     
+  </div>
+  <div class="col-sm-2">
     <div class="social">
       Follow us on:
 
-      <a href="#"><i class="fa fa-facebook-square"></i></a>
-      <a href="#"><i class="fa fa-twitter-square"></i></a>
-      <a href="#"><i class="fa fa-instagram"></i></a>
-      <a href="#"><i class="fa fa-google-plus-square"></i></a>
+      <a href="#"><i class="fa fa-3x fa-facebook-square"></i></a>
+      <a href="#"><i class="fa fa-3x fa-twitter-square"></i></a>
+      <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a>
+
+      Share us on
+      <a href="#"><i class="fa fa-3x fa-facebook-square"></i></a>
+      <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a>
     
-    </div>
-
-    <hr/>
-
-    <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand visible-xs">quiz-portal</a>
-        </div>
-        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-                <a ng-href="{{item.link}}">{{item.title}}</a>
-            </li>
-            <li>
-                <a class="modal-trigger" href="#modal1">Login/Register</a>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
 
-
 <!-- Modal Structure -->
-<div id="modal1" class="modal">
+<div id="modal1" class="modal" ng-controller="ModalCtrl">
   <ul class="tabs">
       <li class="tab col s3"><a class="waver waves-effect waves-dark active" href="#login">Login</a></li>
       <li class="tab col s3"><a class="waver waves-effect waves-dark" href="#register">Register</a></li>
@@ -54,28 +78,35 @@
       <form class="col s12">
           <div class="container-fluid">
   
-              <a class="btn"><i class="fa fa-facebook"></i> Login with Facebook</a>
-              <a class="btn"><i class="fa fa-twitter"></i> Login with Twitter</a>
-              <a class="btn"><i class="fa fa-instagram"></i> Login with Instagram</a>
+              <a ng-click="f()" class="btn"><i class="fa fa-facebook"></i> Login with Facebook</a>
+              <a ng-click="t()" class="btn"><i class="fa fa-twitter"></i> Login with Twitter</a>
+              <!-- <a ng-click="g()" class="btn"><i class="fa fa-google-plus"></i> Login with Google+</a> -->
 
               <div class="or-use-email">or user email</div>
+              <!--LOGIN FORM-->
+              <form name="loginForm"  novalidate>
+                <input placeholder="Email" name="email" ng-model="login.email" type="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
+                <input placeholder="Password" ng-model="login.password" type="password" required>
 
-              <input placeholder="Email" type="email">
-              <input placeholder="Password" type="password">
+                <input type="submit" ng-click="doLogin()" value="Login" class="waves waves-effect btn-flat pull-right">
+              </form>
 
-              <a ui-sref="dashboard" class="waves waves-effect btn-flat pull-right modal-action modal-close">Login</a>
           </div>
       </form>
   </div>
   <div id="register" class="col s12">
       <form>
           <div class="container-fluid">
-              <input placeholder="Name" type="text">
-              <input placeholder="Email" type="email">
-              <input placeholder="Password" type="password">
-              <input placeholder="Retype Password" type="password">
+            <!--REGISTER FORM-->
+            <form name="register" ng-submit="doRegister()" novalidate>
+              <input placeholder="Name" ng-model="register.name" type="text" required>
+              <input placeholder="Email" ng-model="register.email" type="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
+              <input placeholder="Password" ng-model="register.password" ng-minlength="8" type="password" required>
+              <input placeholder="Retype Password" ng-model="register.retype_password" match="register.password" type="password" required>
 
-              <a href="/dashboard" class="waves waves-effect btn-flat pull-right modal-action modal-close">Register</a>
+              <input type="submit" value="Register" ng-click="doRegister()" class="waves waves-effect btn-flat pull-right">
+            </form>
+          
           </div>
       </form>
   </div>

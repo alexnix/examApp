@@ -4,8 +4,11 @@ angular.module('quizPortalApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('profile', {
-        url: '/profile',
+        url: '/me',
         templateUrl: 'app/profile/profile.html',
-        controller: 'ProfileCtrl'
+        controller: 'ProfileCtrl',
+        data: {
+        	isPrivate: true,
+        }
       });
   });

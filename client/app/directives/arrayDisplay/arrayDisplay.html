@@ -1,0 +1,13 @@
+<div ng-repeat = "tag in array" class="skillsList-tag">
+	<span>{{tag}}</span>
+	<i ng-show="editable" ng-click='removeTag($index)' class="fa fa-close"></i>
+</div>
+
+<style>
+	div.skillsList-tag {
+		background-color: #efefef;
+		display: inline;
+		padding: 5px 3px 5px 3px;
+		margin-right: 5px;
+	}
+</style>

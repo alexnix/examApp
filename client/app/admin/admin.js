@@ -6,6 +6,10 @@ angular.module('quizPortalApp')
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        data: {
+        	isPrivate: true,
+        	isAdmin: true,
+        }
       });
   });

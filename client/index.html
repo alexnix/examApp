@@ -4,6 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="/">
@@ -14,6 +15,8 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
+      <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
+      <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -56,17 +59,26 @@
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/materialize/bin/materialize.js"></script>
+      <script src="bower_components/angular-md5/angular-md5.js"></script>
+      <script src="bower_components/jquery-knob/js/jquery.knob.js"></script>
+      <script src="bower_components/angular-knob/src/angular-knob.js"></script>
+      <script src="bower_components/ngDialog/js/ngDialog.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/Filters/ago/ago.filter.js"></script>
+          <script src="app/Filters/time/time.filter.js"></script>
+          <script src="app/Filters/timer/timer.filter.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
           <script src="app/dashboard/dashboard.controller.js"></script>
           <script src="app/dashboard/dashboard.js"></script>
+          <script src="app/directives/arrayDisplay/arrayDisplay.directive.js"></script>
           <script src="app/directives/arrayInput/arrayInput.directive.js"></script>
+          <script src="app/directives/match/match.directive.js"></script>
           <script src="app/directives/materialImage/materialImage.directive.js"></script>
           <script src="app/directives/quiz-card/quiz-card.directive.js"></script>
           <script src="app/directives/timer/timer.directive.js"></script>
@@ -74,11 +86,14 @@
           <script src="app/exam/exam.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/profile-view/profile-view.controller.js"></script>
+          <script src="app/profile-view/profile-view.js"></script>
           <script src="app/profile/profile.controller.js"></script>
           <script src="app/profile/profile.js"></script>
           <script src="app/services/Confirm/Confirm.service.js"></script>
           <script src="app/services/Exam/Exam.service.js"></script>
           <script src="app/services/Timer/Timer.service.js"></script>
+          <script src="app/services/UserService/UserService.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/navbar_logged/navbar_logged.controller.js"></script>

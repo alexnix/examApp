@@ -3,6 +3,8 @@
 angular.module('quizPortalApp')
   .controller('AdminCtrl', function ($scope, $http) {
 
+    $scope.categories = ["Web", "Business", "Management", "Mathmatics"];
+    
   	$scope.toggle = function($event){
   		var $target = $($event.target);
   		var $content = $target.parents(".one-question").find(".one-question-content");
@@ -21,11 +23,14 @@ angular.module('quizPortalApp')
   			return false;
     	$scope.exam = {
 	    	name:"",
-	    	description: "",
+	    	//description: "",
 	    	tags:[],
 	    	duration: 0,
+            category: 0,
+            atendees: 0,
 	    	questions: [{
 	    		text:'',
+                marks: 1,
 	    		options: [{
 	    			checked: false,
 	    			isCorrect: false,
@@ -48,6 +53,7 @@ angular.module('quizPortalApp')
     $scope.addQuestion = function() {
     	$scope.exam.questions.push({
     		text:'',
+            marks: 1,
     		options: [
     			{
     				checked: false,
@@ -76,6 +82,12 @@ angular.module('quizPortalApp')
     };
 
     $scope.save = function() {
+        var marks = 0;
+        $scope.exam.questions.forEach(function(question){
+            marks += question.marks;
+        });
+        $scope.exam.marks = marks;
+
     	$http.post('/api/admin/exam', $scope.exam).then(function(){
     		$("section.edit-panel").slideUp();
     		$scope.exam = null;	
@@ -85,6 +97,12 @@ angular.module('quizPortalApp')
     };
 
     $scope.update = function() {
+        var marks = 0;
+        $scope.exam.questions.forEach(function(question){
+            marks += question.marks;
+        });
+        $scope.exam.marks = marks;
+
     	$http.put('/api/admin/exam/'+$scope.exam._id, $scope.exam).then(function(){
     		$("section.edit-panel").slideUp();
     		$scope.exam = null;	

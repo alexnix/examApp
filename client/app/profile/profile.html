@@ -1,48 +1,114 @@
 <div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
 
 <div class="container profile-section">
-	<div class="card">
-		<div class="col-sm-4 card-image profile-pic">
-			<img src="http://images2.fanpop.com/images/photos/7900000/JOHN-DOE-john-doe-7969094-2087-2560.jpg"/>
-		</div>
-		<div class="col-sm-8 card-content">
-			<div class="row">
-				<h3>John Doe</h3>
-				<i class="fa fa-share share pull-right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share Profile"></i>
+	<div class="row">
+		<div class="container-fluid">
+			<div class="card">
+				<div class="col-sm-3 card-image profile-pic">
+					<img src="http://halfnine.com.au/wp-content/uploads/2013/05/Brad_portrait1-540x540.jpg"/>
+					<!-- <div class="change">
+						<i class="fa fa-upload fa-3x"></i>
+					</div> -->
+				</div>
+				<div class="col-sm-9 card-content">
+					<div class="row">
+						<h3>	
+							{{user.name}} 
+							<button ng-click="save()" class="pull-right btn blue">Save</button>
+						</h3>
+						<div class="clearfix"></div>
+						<p>
+							<input ng-model="user.age" type="number" min=18 max=100 ng-model="user.age" placeholder="Enter your age">
+						</p>
+						<p>
+							<input ng-model="user.tagline" type="text" ng-model="user.tagline" placeholder="Enter your tagline">
+						</p>
+						<div class="clearfix"></div>
+						<p>Proud Member</p>
+						<!-- <pre>{{user |json}}</pre> -->
+						<p><a class="pull-right" ui-sref="profile-view({id:user._id})">View as Public</a></p>
+					</div>
+					
+
+				</div>
 			</div>
-			<div class="row">
-				<p><b>Overall Score</b> 90%</p>
-				<table class="bordered">
-			        <thead>
-			          <tr>
-			              <th data-field="id">Exam Aptempted</th>
-			              <th data-field="name">Date</th>
-			              <th data-field="price">Score</th>
-			          </tr>
-			        </thead>
+		</div>
+	</div>
 
-			        <tbody>
-			        
-			          <tr>
-			            <td>AngularJs</td>
-			            <td>2 hours ago</td>
-			            <td>100%</td>
-			          </tr>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card sm-card" ng-repeat="category in categories">
+				<div class="row">
+					<div class="col-xs-3 sc-left">
+						<knob data-readOnly=true knob-data="{{(100*category.marks)/category.total}}" data-fgColor="#ffcc80"></knob>
+					</div>
+					<div class="col-xs-9">	
+						<div class="col-xs-8 the-label">
+							Questions
+						</div>
+						<div class="col-xs-4">
+							{{category.questions}}
+						</div>
+						<div class="col-xs-8 the-label">
+							Marks
+						</div>
+						<div class="col-xs-4">
+							{{category.marks}}
+						</div>
+						<div class="col-xs-8 the-label">
+							Total Marks
+						</div>
+						<div class="col-xs-4">
+							{{category.total}}
+						</div>
+					</div>
+				</div>
+				<div class="row categ-row">
+					{{category.name}}
+				</div>
 
-			          <tr>
-			            <td>CSS Beginners</td>
-			            <td>22 days ago</td>
-			            <td>100%</td>
-			          </tr>
+			</div>
+		</div>
 
-			          <tr>
-			            <td>HTML Advanced</td>
-			            <td>2 February 2015</td>
-			            <td>80%</td>
-			          </tr>
-			          
-			        </tbody>
-			      </table>
+		<div class="col-md-6">
+			<div class="card sm-card">
+				<div class="row">
+					<div class="col-xs-8 the-label">
+						Total Tests
+					</div>
+					<div class="col-xs-4">
+						{{user.exams.length}}
+					</div>
+					<div class="col-xs-8 the-label">
+						Total Questions
+					</div>
+					<div class="col-xs-4">
+						{{total_questions}}
+					</div>
+					<div class="col-xs-8 the-label">
+						Total Marks
+					</div>
+					<div class="col-xs-4">
+						{{total_marks}}
+					</div>
+				</div>
+			</div>
+			<h4 ng-show="user.exams.length">Tests Taken</h4>
+			<div class="clearfix"></div>
+			<div class="card sm-card" ng-repeat="exam in user.exams |  orderBy: '-date'">
+
+				<div class="col-xs-3 sc-left">
+					<knob data-readOnly=true knob-data="{{(100*exam.score)/exam.total}}" konb-options="options"></knob>
+				</div>
+				<div class="col-xs-9">
+					<h5>
+						{{exam.name}}
+						<small class="pull-right">{{exam.date | ago}}</small>
+					</h5>
+					<div class="clearfix"></div>
+					{{exam.score}} out of {{exam.total}}
+				</div>
+
 			</div>
 		</div>
 	</div>

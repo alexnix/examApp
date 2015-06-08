@@ -131,5 +131,6 @@ angular.module('quizPortalApp')
     		});
     		return flag;
     	}
-    }
+    };
+
   });

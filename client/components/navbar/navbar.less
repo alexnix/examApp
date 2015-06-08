@@ -1,22 +1,40 @@
 div.logo img {
 	width: 100%;
+	padding-top: 15px;
 }
 
 div.navbar-wrapper {
 	margin-top: 15px;
 }
 
+div.big-left {
+	border-right: 2px dashed black;
+	padding-right: 20px;
+}
 div.social {
-	font-size: 20px;	
+	text-align: center;
+	font-weight: bold;
+	text-decoration: underline;
 	a {
-		display: inline-block;
+		display: block;
 		padding: 0px 5px 0px 5px;
 		i {
-			font-size: 20px;
-			color: black;
+			font-weight: normal;
+			padding-bottom: 10px;
 		}
+		i.fa-facebook-square {
+			color: #3b5998 !important;
+		}
+		i.fa-google-plus-square {
+			color: #d34836 !important;
+		}
+		i.fa-twitter-square {
+			color: #4099FF !important;
+		}
+
 	}
 }
+
 
 div.navbar {
 	background-color: transparent;
@@ -54,4 +72,12 @@ div#login {
 		text-align: center;
 		color: #afafaf;
 	}
+}
+
+
+input.ng-dirty.ng-invalid {
+	color: red;
+}
+input.ng-dirty.ng-valid {
+	color: green;
 }

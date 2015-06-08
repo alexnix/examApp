@@ -2,11 +2,44 @@
 	<div class="test-card card">
 		<div class="top">
 			<h2>{{test.name}}</h2>
-			<p>
-				{{test.description}}
-			</p>
+			<hr/>
+			<div class="row">
+				<div class="col-xs-8">
+					<p class="set-label">
+						<i class="fa fa-th fa-2x"></i>Toala Questions
+					</p>
+					<p class="set-label">
+						<i class="fa fa-check fa-2x"></i>Total Marks
+					</p>
+					<p class="set-label">
+						<i class="fa fa-clock-o fa-2x"></i>Duration
+					</p>
+					<p class="set-label">
+						<i class="fa fa-file fa-2x"></i>Total Attendees
+					</p>
+				</div>
+				<div class="col-xs-4">
+					<p class="set-value">
+						{{test.questions}}
+					</p>
+					<p class="set-value">
+						{{test.marks}}
+					</p>
+					<p class="set-value">
+						{{test.duration | time}}
+					</p>
+					<p class="set-value">
+						{{test.atendees}}
+					</p>
+				</div>
+			</div>
 			<div class="clearfix"></div>
 		</div>
-		<a ui-sref="exam({id:test._id})" class="waves waves-effect waves-light">Take Exam</a>
+		<a ui-sref="exam({id:test._id})" class="waves waves-effect waves-light">
+			<p class="set-label">
+				<i class="fa fa-pencil fa-2x"></i>
+				Take Exam
+			</p>
+		</a>
 	</div>
 </div>
