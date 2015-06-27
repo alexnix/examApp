@@ -13,8 +13,11 @@ angular.module('quizPortalApp')
 
     	Register: function(data) {
     		data.hash = md5.createHash( data.password );
-    		data.password = data.retype_passwprd = null;
-    		return $http.post('/api/auth/local/register', data);
+    		return $http.post('/api/auth/local/register', {
+                email: data.email,
+                hash: data.hash,
+                name: data.name,
+            });
     	},
 
     	LoginLocal: function(data) {
@@ -33,7 +36,7 @@ angular.module('quizPortalApp')
         },
 
         Logout: function() {
-            $http.get("/api/auth/Logout");
+            return $http.get("/api/auth/Logout");
         }
     }
   });

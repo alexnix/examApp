@@ -15,9 +15,8 @@ angular.module('quizPortalApp')
     $scope.name = UserService.me.name;
     
     $scope.logout = function() {
-      alert(1);
-      // UserService.Logout().then(function(){
-      //   $state.go('main');
-      // })
+      UserService.Logout().then(function(){
+        $state.go('main');
+      })
     }
   });

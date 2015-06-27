@@ -1,15 +1,20 @@
 <div class="teal navbar_logged" ng-controller="NavbarLoggedCtrl">
-	<div class="container">
+	<div class="container narrow">
 		<span class="page_title">{{page_title}}</span>
 		<div class="pull-right">
-			<a class='dropdown-button' href='#' data-activates='dropdown1'>{{name}}</a>
-			<!-- Dropdown Structure -->
-			<ul id='dropdown1' class='dropdown-content'>
-				<li><a href="/dashboard">Exams Dashboard</a></li>
-				<li><a href="/me">Profile</a></li>
-				<li class="divider"></li>
-				<li><a href="/api/auth/logout">Log Out</a></li>
-			</ul>
+			<div class="dropdown">
+			  <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			    {{name}}
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			    <li role="presentation"><a role="menuitem" ui-sref="dashboard">Exams Dashboard</a></li>
+			    <li role="presentation"><a role="menuitem" ui-sref="profile">Edit Profile</a></li>
+			    <li role="presentation"><a role="menuitem" ui-sref="admin">Admin</a></li>
+			    <li role="presentation" class="divider"></li>
+			    <li role="presentation"><a role="menuitem" ng-click="logout()" href="#">Logout</a></li>
+			  </ul>
+			</div>
 		</div>
 	</div>
 </div>

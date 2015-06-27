@@ -11,7 +11,7 @@
 				<div class="col-sm-9 card-content">
 					<div class="row">
 						<h3>	
-							{{user.name}} <SMALL>{{user.age}} years old</SMALL>
+							{{user.name}} <SMALL ng-show="user.age">{{user.age}} years old</SMALL>
 						</h3>
 						<div class="clearfix"></div>
 						<p>
@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6" ng-show="categories.length">
 			<div class="card sm-card" ng-repeat="category in categories">
 				<div class="row">
 					<div class="col-xs-3 sc-left">

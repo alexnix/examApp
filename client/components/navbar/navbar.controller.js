@@ -34,23 +34,26 @@ angular.module('quizPortalApp')
   });
 
   angular.module('quizPortalApp')
-  .controller('ModalCtrl', function ($scope, $location, UserService) {
+  .controller('ModalCtrl', function ($scope, $location, UserService, $state) {
   
     $scope.foo = "Bar";
     $scope.doRegister = function() {
       UserService.Register($scope.register).then(function(data){
-        alert(11);
+        UserService.LoginLocal($scope.register).then(function(res){
+          $('.modal-trigger').closeModal();
+          $state.go("dashboard");
+        });
       }, function(){
-        alert(0);
+        alert("Registration failed. Please try again.");
       });
     };
 
     $scope.doLogin = function() {
       UserService.LoginLocal($scope.login).then(function(res){
-        alert("Success");
-        console.log(res.data);
+        $('.modal-trigger').closeModal();
+        $state.go("dashboard");
       }, function(){
-        alert('Fail boss');
+        alert('Login failed. Please try again.');
       });
     };
 

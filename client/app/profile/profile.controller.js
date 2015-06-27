@@ -2,9 +2,7 @@
 
 angular.module('quizPortalApp')
   .controller('ProfileCtrl', function ($scope, UserService) {
-    $(document).ready(function(){
-	  $('.tooltipped').tooltip({delay: 50});
-	});
+    $scope.page_title = "Edit Profile";
 
     $scope.user = UserService.me;
     $scope.total_marks = 0; $scope.total_questions = 0;
