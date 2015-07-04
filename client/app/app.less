@@ -19,9 +19,34 @@
     padding: 0.2em 0;
 }
 
-div.container.narrow {
-	max-width: 900px;
+/////////
+
+
+
+* {
+  margin: 0;
 }
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -215px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 215px; 
+}
+
+
+
+
+
+////////
 
 body {
 	background-image: url('../assets/images/handmadepaper.png');

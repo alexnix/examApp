@@ -21,6 +21,7 @@ angular.module('quizPortalApp', [
 
 .run(function($rootScope, UserService, $state){
 
+
   $rootScope.$on('$stateChangeStart', function (event, next) {
     if( next.data.isPrivate )
       UserService.Auth().then(function(res){
