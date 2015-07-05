@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('NavbarLoggedCtrl', function($scope, UserService, $state){
+  .controller('NavbarLoggedCtrl', function($scope, UserService, $state, $rootScope){
       $('.dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 225,
@@ -16,7 +16,9 @@ angular.module('quizPortalApp')
     
     $scope.logout = function() {
       UserService.Logout().then(function(){
+        $rootScope.User = null;
         $state.go('main');
+
       })
     }
   });

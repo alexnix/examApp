@@ -36,6 +36,9 @@ angular.module('quizPortalApp', [
   UserService.Auth().then(function(res){
     // User is authenticated
     UserService.Me(res.data);
+    $rootScope.User = UserService.me;
+  }, function(){
+    $rootScope.User = null;
   });
   
 });
