@@ -25,8 +25,8 @@ angular.module('quizPortalApp')
 	    	name:"",
 	    	//description: "",
 	    	tags:[],
-	    	duration: 0,
-            category: 0,
+	    	duration: 10,
+            category: null,
             atendees: 0,
 	    	questions: [{
 	    		text:'',
@@ -87,7 +87,7 @@ angular.module('quizPortalApp')
             marks += question.marks;
         });
         $scope.exam.marks = marks;
-
+        $scope.exam.duration *= 60;
     	$http.post('/api/admin/exam', $scope.exam).then(function(){
     		$("section.edit-panel").slideUp();
     		$scope.exam = null;	
@@ -131,6 +131,11 @@ angular.module('quizPortalApp')
     function loadExams() {
     	$http.get('/api/exam').then(function(res){
 	    	$scope.tests = res.data;
+            res.data.forEach(function(test){
+                if ( $scope.categories.indexOf(test.category) )
+                    $scope.categories.push(test.category);
+                //console.log(test);
+            });
 	    });
     };
     loadExams();

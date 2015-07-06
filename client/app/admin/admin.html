@@ -15,21 +15,17 @@
 			</div> -->
 
 			<div class="form-item">
-				<p>Exam Duration</p>
-				 <select ng-model="exam.duration" class=" browser-default">
-				 		<option value="0">Select Duration</option>
-			      <option value="60">One Minute</option>
-			      <option value="600">10 Minutes</option>
-			      <option value="1800">30 Minutes</option>
-			    </select>
+				<p>Exam Duration <SMALL>in minutes</SMALL></p>
+				<input type="number" min=10 max=180 ng-model="exam.duration">
 			</div>
 
 			<div class="form-item">
 				<p>Exam Category</p>
-				<select ng-model="exam.category" class=" browser-default">
+				<!-- <select ng-model="exam.category" class=" browser-default">
 			 		<option value="0">Select Category</option>
-		      <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
-			  </select>
+		      		<option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+			  	</select> -->
+			  	<autocomplete ng-model="exam.category" data="categories" on-type="updateMovies"></autocomplete>
 
 			</div>
 

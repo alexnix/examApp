@@ -18,7 +18,8 @@
     "materialize": "~0.96.1",
     "angular-md5": "~0.1.7",
     "angular-knob": "~0.0.2",
-    "ngDialog": "~0.4.0"
+    "ngDialog": "~0.4.0",
+    "allmighty-autocomplete": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

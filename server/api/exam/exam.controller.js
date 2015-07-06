@@ -16,6 +16,7 @@ exports.index = function(req, res) {
   			'tags': exam.tags,
         'questions': exam.questions.length, 
         'duration': exam.duration,
+        'category': exam.category,
         'marks': exam.marks,
         'atendees': exam.atendees,
   		});

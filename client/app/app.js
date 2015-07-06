@@ -8,7 +8,8 @@ angular.module('quizPortalApp', [
   'ui.bootstrap',
   'angular-md5',
   'ui.knob',
-  'ngDialog'
+  'ngDialog',
+  'autocomplete'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
