@@ -43,7 +43,8 @@ angular.module('quizPortalApp')
         template: "<h4>Exam Checked</h4><p>Your score is <b>"+res.data.score+"</b></p>",
         plain: true,
       });
-      results = res.data.results;
+      $scope.results = results = res.data.results;
+      console.log(res.data);
     });
   };
 
@@ -97,7 +98,7 @@ angular.module('quizPortalApp')
   var results = null;
   $scope.isCorrect = function(index) {
     if(results)
-      return results[index];
+      return results[index] === true;
   }
 
 });

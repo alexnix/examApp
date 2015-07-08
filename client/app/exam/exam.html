@@ -23,16 +23,37 @@
 				Description of Question
 			</h3>
 
+			<a class="btn" ui-sref="question({
+				id_quiz: exam._id,
+				id_question: question.id
+			})" ng-show="timeUp">See discussions for this question</a>
+
 			<p ng-bind-html="question.text"></p>
 			<small>{{question.marks}} marks</small>
 		</div>
-		<div class="col-sm-3">
-			<h3>Select Answer</h3>
+		<div class="col-sm-3" ng-hide="timeUp && !isCorrect(questionNo()-1)">
+			<h3>Answer</h3>
 			<p ng-repeat="option in question.options">
-		      <input type="checkbox" id="{{$index}}" ng-model="option.value"/>
+		      <input type="checkbox" ng-disabled="timeUp" id="{{$index}}" ng-model="option.value"/>
 		      <label for="{{$index}}">{{option.text}}</label>
 		    </p>		    
 		</div>
+	
+		<div class="col-sm-3" ng-show="timeUp && !isCorrect(questionNo()-1)">
+			<h3>Answer</h3>
+			You Answered
+			<p ng-repeat="option in question.options">
+		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="option.value"/>
+		      <label for="{{$index}}">{{option.text}}</label>
+		    </p>
+		    Correct Answer Was		
+			<p ng-repeat="option in results[questionNo()-1]">
+		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="true"/>
+		      <label for="{{$index}}">{{option.text}}</label>
+		    </p>
+
+		</div>
+
 		<div class="col-sm-3 questions-tab">
 			<h3>All Questions</h3>
 			

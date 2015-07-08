@@ -51,18 +51,22 @@ exports.submitExam = function(req, res, next) {
       index.option = -1;
       index.question = index.question + 1;
 
+      req.body.results[index.question] = [];
       question.options.forEach(function(option){
         index.option ++;
         if( req.body.questions[index.question].options[index.option].value === undefined)
           req.body.questions[index.question].options[index.option].value = false;
         if ( option.isCorrect != req.body.questions[index.question].options[index.option].value )
           ok = false;
+
+        if( option.isCorrect )
+          req.body.results[index.question].push(option);
       });
 
       if ( ok ) {
-        req.body.results.push(true);
+        req.body.results[index.question] = true;
         score = score + question.marks;
-      } else req.body.results.push(false);
+      } //else req.body.results.push(false);
     });
 
     // Relative score
@@ -76,10 +80,12 @@ exports.submitExam = function(req, res, next) {
 
 exports.saveExam = function(req, res) {
   db.users.findOne({_id: req.user._id}, function(err, doc){
+    // verifica daca a mai dat examenul
     var attepts = doc.exams.filter(function(exam){
       return exam._id == req.body._id;
     }).length;
 
+    // daca nu l-a mai dat il saveaza
     if( attepts == 0 ) {
       db.users.update({_id: req.user._id}, 
         { $push: { exams: {_id: req.body._id, 
@@ -92,9 +98,21 @@ exports.saveExam = function(req, res) {
         } }, 
         function(err, doc){        
           db.exams.update({_id: req.body._id}, {$set: {atendees: req.body.atendees + 1}}, function(err, doc){          
-            res.status(200).send({results: req.body.results, score: req.body.score});
+            res.status(200).send({results: req.body.results, score: req.body.score}); // trimite inapoi vectorul cu rezultate si scorul realativ
           });
       });
-    } else res.status(200).send({results: req.body.results, score: req.body.score});
+    } else res.status(200).send({results: req.body.results, score: req.body.score}); // trimite inapoi vectorul cu rezultate si scorul realativ
   });
-}
+};
+
+exports.getQuestion = function(req, resp){
+  var q;
+  db.exams.findOne({_id: req.params.quiz}, function(err, doc){
+    doc.questions.forEach(function(question){
+      if( question.id == req.params.question )
+        q = question;
+    });
+    q.examName = doc.name;
+    resp.status(200).send(q);
+  });
+};

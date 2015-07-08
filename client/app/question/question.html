@@ -1,0 +1,28 @@
+<div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
+
+<div class="container narrow page question-discussion">
+	
+	<div class="row">
+		<p>
+			This page is intended to be the discussion board of the question below.
+			<Br/>
+			<i class="fa fa-exclamation"></i> Sharing this page with other users that are not part of the discussion is against our website rules.
+		</p>
+
+		<div class="col-sm-8">
+			<h3>Descriptio of question</h3>
+			<p ng-bind-html="question.text"></p>
+			<small>{{question.marks}} marks</small>
+		</div>
+
+		<div class="col-sm-4">
+			<h3>Correct Answer</h3>
+			<p ng-repeat="option in question.options">
+		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="option.isCorrect"/>
+		      <label for="{{$index}}">{{option.text}}</label>
+		    </p>	
+		</div>
+	</div>
+
+	<dir-disqus disqus-shortname="quizapplication" disqus-url="{{url}}" disqus-identifier="{{identificator}}" ></dir-disqus>
+</div>

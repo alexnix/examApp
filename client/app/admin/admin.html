@@ -40,7 +40,7 @@
 		<div ng-repeat="question in exam.questions" class="panel one-question form-item">
 			<div class="row one-question-top">
 				<div class="col-xs-10">
-					{{question.text}}
+					{{question.text}} 
 				</div>
 
 				<div class="col-xs-2 button">
@@ -59,7 +59,7 @@
 					Question Marks
 				</p>
 				<input type="number" min=0 max=5 ng-model="question.marks">
-
+					
 				<p>
 					Question Options
 					<span ng-click="addOption(question)" class="btn add-option"><i class="fa fa-plus"></i> Add Option</span>

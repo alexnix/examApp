@@ -9,4 +9,6 @@ router.get('/', controller.index);
 router.get('/get/:id', controller.getExam);
 router.post('/submit', controller.submitExam, controller.saveExam);
 
+router.get('/getQuestion/:quiz/:question', controller.getQuestion);
+
 module.exports = router;

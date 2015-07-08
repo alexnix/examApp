@@ -5,6 +5,8 @@ angular.module('quizPortalApp')
     return {
     	QuizNormal: function(){
     		return $http.post('http://quizapp213.appspot.com/allCards');
-    	}
+    	},
+
+    	
     };
   });
