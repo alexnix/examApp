@@ -48,7 +48,7 @@
 		    </p>
 		    Correct Answer Was		
 			<p ng-repeat="option in results[questionNo()-1]">
-		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="true"/>
+		      <input type="checkbox" disabled="true" id="{{$index}}" checked="true" />
 		      <label for="{{$index}}">{{option.text}}</label>
 		    </p>
 
@@ -88,3 +88,20 @@
 	</div>
 </div>
 
+
+<script type="text/ng-template" id="submit_template.html">
+
+<div class="repot-dialog">
+	<h2>Exam checked</h2>
+
+	<p ng-hide="User.hasShared">
+		Before you can see the results please take a moment and share our page. We appreciate that.
+		<br/>
+		<button class="btn btn-facebook" ng-click="share()"><i class="fa fa-facebook"></i> Share</button>
+	</p>
+	<p ng-show="User.hasShared">
+		Your score is {{score}}
+	</p>
+</div>
+  
+</script>

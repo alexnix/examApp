@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams, ngDialog) {
+  .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams, ngDialog, SweetAlert, $state, $rootScope) {
    
   // App Logic
 
@@ -10,8 +10,11 @@ angular.module('quizPortalApp')
 
    	Timer.Init($scope.exam.duration, function(){
   		$scope.timeUp = true;
-			alert("Time Up");
+			$scope.submitExam();
 		});
+    $rootScope.timeUp = false;
+
+    $rootScope.theTimer = Timer;
 
     $scope.ticker = Timer.Ticker();
 		Timer.Start();
@@ -22,10 +25,47 @@ angular.module('quizPortalApp')
   });
 
   $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
-		if( !$scope.timeUp === true )
+		if( !$scope.timeUp === true ){
 		    if( !confirm("Are you sure you want to leave exam ?") )
 		    	event.preventDefault();
+
+//         event.preventDefault();
+//       //   SweetAlert.swal({
+//       //    title: "Are you sure?",
+//       //    text: "",
+//       //    type: "warning",
+//       //    showCancelButton: true,
+//       //    confirmButtonColor: "#DD6B55",
+//       //    confirmButtonText: "",
+//       //    closeOnConfirm: false,
+//       //    closeOnCancel: false
+//       //  }, 
+//       // function(confirm){ 
+//       //    if( confirm )
+//       // });
+
+
+
+// SweetAlert.swal({
+//    title: "Are you sure?",
+//    text: "You are about to leave the exam.",
+//    type: "warning",
+//    showCancelButton: true,
+//    confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, I give up",
+//    cancelButtonText: "Cancel",
+//    closeOnConfirm: false,
+//    closeOnCancel: false }, 
+// function(isConfirm){ 
+//   alert(1);
+//    if (isConfirm) 
+//     $state.go(toState);
+    
+// });
+
+      }
+
 	});
+
 
 	$scope.$on("$destroy", function(){
 		Timer.Cancel();
@@ -35,17 +75,46 @@ angular.module('quizPortalApp')
     if( !$scope.timeUp === true )
       if( ! confirm('Are you sure you want to finish exam ahead of time ?') )
         return false;
-    $http.post('/api/exam/submit', $scope.exam).then(function(res){
-      Timer.Cancel();
-      $scope.timeUp = true;
-      console.log(res.data);
-      ngDialog.open({
-        template: "<h4>Exam Checked</h4><p>Your score is <b>"+res.data.score+"</b></p>",
-        plain: true,
+   
+
+
+    ngDialog.open({
+        template: "submit_template.html",
+        data: {
+          exam: $scope.exam,
+        },
+        controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+          $scope.share = function(){
+            FB.ui(
+              {
+                method: 'share',
+                href: 'http://54.169.84.192/',
+              },
+              // callback
+              function(response) {
+                if (response && !response.error_code) {
+                  //alert('Posting completed.');
+
+                   $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
+                    $rootScope.theTimer.Cancel();
+                    $rootScope.timeUp = true;
+                    console.log(res.data);
+                    $scope.score = res.data.score;
+                    $rootScope.results = results = res.data.results;
+                    console.log(res.data);
+                  });
+                   window.open(location.protocol + '//' + location.host + "/me", '_blank');
+                  //$http.post("");
+                  $rootScope.User.hasShared = true;
+                } else {
+                  //alert('Error while posting.');
+                }
+              }
+            );
+          };
+        }],
       });
-      $scope.results = results = res.data.results;
-      console.log(res.data);
-    });
+
   };
 
   // UI Logic
@@ -55,11 +124,13 @@ angular.module('quizPortalApp')
   };
 
   $scope.isLastQuestion = function() {
-  	return $scope.exam.questions.indexOf($scope.question) == $scope.exam.questions.length-1;
+    if( $scope.exam )
+  	 return $scope.exam.questions.indexOf($scope.question) == $scope.exam.questions.length-1;
   };
 
   $scope.isFirstQuestion = function() {
-  	return $scope.exam.questions.indexOf($scope.question) == 0;
+    if( $scope.exam )
+    	return $scope.exam.questions.indexOf($scope.question) == 0;
   };
 
   $scope.next = function () {

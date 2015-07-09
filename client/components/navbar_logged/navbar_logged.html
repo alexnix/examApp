@@ -2,15 +2,16 @@
 	<div class="container narrow">
 		<span class="page_title">{{page_title}}</span>
 		<div class="pull-right">
-			<div class="dropdown">
+			<div class="dropdown" ng-show="User">
 			  <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 			    {{name}}
 			    <span class="caret"></span>
-			  </a>
+			  </a>	
+			  
 			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 			    <li role="presentation"><a role="menuitem" ui-sref="dashboard">Exams Dashboard</a></li>
 			    <li role="presentation"><a role="menuitem" ui-sref="profile">Edit Profile</a></li>
-			    <li role="presentation"><a role="menuitem" ui-sref="admin">Admin</a></li>
+			    <li role="presentation"><a role="menuitem" ui-sref="admin" ng-show="User.isAdmin">Admin</a></li>
 			    <li role="presentation" class="divider"></li>
 			    <li role="presentation"><a role="menuitem" ng-click="logout()" href="#">Logout</a></li>
 			  </ul>

@@ -11,8 +11,9 @@ angular.module('quizPortalApp')
         belowOrigin: false // Displays dropdown below the button
       }
     );
-       
-    $scope.name = UserService.me.name;
+      
+    if( UserService.me ) 
+      $scope.name = UserService.me.name;
     
     $scope.logout = function() {
       UserService.Logout().then(function(){

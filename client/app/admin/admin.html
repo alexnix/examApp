@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
 
-<div class="container page admin">
+<div class="container page admin" ng-show="User.isAdmin">
 	<section class="edit-panel">
 		<h2>Exam Dretails</h2>
 		<div class="panel exam-details">

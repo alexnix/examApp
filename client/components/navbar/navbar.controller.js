@@ -7,11 +7,13 @@ angular.module('quizPortalApp')
       'link': '/'
     },{
       'title': 'Discussions',
-      'link': '/discussions'
-    },{
-      'title': 'Blog',
-      'link': '/blog'
-    },];
+      'link': '/discussion'
+    },
+    // {
+    //   'title': 'Blog',
+    //   'link': '/blog'
+    // },
+    ];
 
     $scope.isCollapsed = true;
 

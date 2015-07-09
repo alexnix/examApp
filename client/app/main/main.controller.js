@@ -57,4 +57,13 @@ angular.module('quizPortalApp')
     		description: "CSS frameworks like Bootstrap and Materializecss.",
     	},];
 
+
+    function loadExams() {
+        $http.get('/api/exam').then(function(res){
+            $scope.tests = res.data;
+            $scope.tests.slice(0, 5);
+        });
+    };
+    loadExams();
+
   });

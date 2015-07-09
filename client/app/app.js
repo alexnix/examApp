@@ -9,7 +9,8 @@ angular.module('quizPortalApp', [
   'angular-md5',
   'ui.knob',
   'ngDialog',
-  'autocomplete'
+  'autocomplete',
+  'oitozero.ngSweetAlert'
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
