@@ -32,8 +32,16 @@
           Some more test here.
         </div>
       </div> -->
+    
+    
+      <div class="container-fluid">
+        <span class="categ" ng-repeat="categ in categories" ng-click="selectCateg(categ)">{{categ}}</span>
+        <hr/>
+      </div>
 
-      <quiz-card ng-repeat="test in tests" ></quiz-card>
+      <div class="clearfix"></div>
+
+      <quiz-card ng-repeat="test in tests" ng-show="test.category == filterinCateg"></quiz-card>
 
   </section>
   

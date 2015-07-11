@@ -1,6 +1,6 @@
 <div class="container main navbar-wrapper">
   
-  <div class="col-xs-10 big-left">
+  <div class="col-xs-12 big-left">
     <div class="row">
       <div class="col-xs-2 logo">
         <img src="assets/images/logo.png" />
@@ -18,6 +18,14 @@
               <a href="/" class="navbar-brand visible-xs">quiz-portal</a>
             </div>
             <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+
+
+              <a href="https://twitter.com/TestBharat" class="pull-right"><i class="fa fa-3x fa-twitter-square"></i></a>
+              <a href="https://www.facebook.com/testbharat" class="pull-right"><i class="fa fa-3x fa-facebook-square"></i></a>
+
+              <div class="clearfix"></div>
+
+
               <ul class="nav navbar-nav">
                 <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
                     <a ng-href="{{item.link}}">{{item.title}}</a>
@@ -26,6 +34,7 @@
                     <a class="modal-trigger" href="#modal1">Login/Register</a>
                 </li>
               </ul>
+              
             </div>
           </div>
         </div>
@@ -37,10 +46,10 @@
 
         <carousel interval="5000">
           <slide>
-            <img ng-src="https://www.mountaingoatsoftware.com/uploads/blog/ExamAnswerSheet2977380Small.jpg" style="margin:auto; width:723px; height:479px ">
+            <img ng-src="assets/images/1.jpg" style="margin:auto; width:100%; height:579px ">
           </slide>
           <slide>
-            <img ng-src="http://tutorhub.wpengine.com/wp-content/uploads/2012/03/exams1.jpg" style="margin:auto; width:723px; height:479px ">
+            <img ng-src="assets/images/2.jpg" style="margin:auto; width:100%; height:579px ">
           </slide>
 
         </carousel>
@@ -52,20 +61,17 @@
     
   </div>
   <div class="col-xs-2">
-    <div class="social">
+    <!-- <div class="social">
       Follow us on:
 
-      <a href="https://www.facebook.com/testbharat"><i class="fa fa-3x fa-facebook-square"></i></a>
-      <a href="https://twitter.com/TestBharat"><i class="fa fa-3x fa-twitter-square"></i></a>
-      <a href="https://twitter.com/TestBharat" class="twitter-follow-button" data-show-count="false">Follow @TestBharat</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      <!-- <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a> -->
 
-      <!-- Share us on
+      <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a>
+
+      Share us on
       <a href="#"><i class="fa fa-3x fa-facebook-square"></i></a>
-      <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a> -->
+      <a href="#"><i class="fa fa-3x fa-google-plus-square"></i></a>
     
-    </div>
+    </div> -->
   </div>
 </div>
 
