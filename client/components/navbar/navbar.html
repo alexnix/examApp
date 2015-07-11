@@ -30,8 +30,11 @@
                 <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
                     <a ng-href="{{item.link}}">{{item.title}}</a>
                 </li>
-                <li>
+                <li ng-hide="User">
                     <a class="modal-trigger" href="#modal1">Login/Register</a>
+                </li>
+                <li ng-show="User">
+                    <a href="/me">Profile</a>
                 </li>
               </ul>
               
