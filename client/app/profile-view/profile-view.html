@@ -1,29 +1,30 @@
+<div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
+
 <div class="container profile-section">
 	<div class="row">
 		<div class="container-fluid">
 			<div class="card">
-				<div class="col-sm-3 card-image profile-pic">
-					<img src="http://halfnine.com.au/wp-content/uploads/2013/05/Brad_portrait1-540x540.jpg"/>
-					<!-- <div class="change">
-						<i class="fa fa-upload fa-3x"></i>
-					</div> -->
-				</div>
-				<div class="col-sm-9 card-content">
-					<div class="row">
-						<h3>	
-							{{user.name}} <SMALL ng-show="user.age">{{user.age}} years old</SMALL>
-						</h3>
-						<div class="clearfix"></div>
-						<p>
-							{{user.tagline}}
-						</p>
-						<div class="clearfix"></div>
-						<p>Proud Member</p>
-						<!-- <pre>{{user |json}}</pre> -->
+				<div class="container-fluid">
+					<div class="col-sm-3 card-image profile-pic" >
+						<img ng-src="{{'assets/uploads/' + User.avatar + '?' + date}}"/>
+						
 					</div>
-					
-
+					<div class="col-sm-9 card-content">
+						<div class="row">
+							<h3>	
+								{{user.name}} <SMALL ng-show="user.age">{{user.age}} years old</SMALL>
+							</h3>
+							<div class="clearfix"></div>
+							<p>
+								{{user.tagline}}
+							</p>
+							<div class="clearfix"></div>
+							<p>Proud Member</p>
+							<!-- <pre>{{user |json}}</pre> -->
+						</div>
+					</div>
 				</div>
+				<br/>
 			</div>
 		</div>
 	</div>

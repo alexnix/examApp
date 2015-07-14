@@ -3,6 +3,7 @@
 angular.module('quizPortalApp')
   .controller('AdminCtrl', function ($scope, $http) {
 
+    $scope.page_title = "Admin"
     $scope.categories = ["Web", "Business", "Management", "Mathmatics"];
     
   	$scope.toggle = function($event){

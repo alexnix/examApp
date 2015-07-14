@@ -75,4 +75,19 @@ angular.module('quizPortalApp')
         $scope.filterinCateg = categ;
     };
 
+    $scope.tags = [];
+    $scope.matchesTags = function(exam_tags) {
+        if( $scope.tags == undefined || $scope.tags.length == 0){
+            return true;
+        }
+        else{   
+            var flag = true;
+            $scope.tags.forEach(function(tag){
+                if( exam_tags.indexOf(tag.toLowerCase()) == -1 )
+                    flag = false;
+            });
+            return flag;
+        }
+    };
+
   });

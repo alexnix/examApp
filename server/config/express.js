@@ -35,8 +35,8 @@ module.exports = function(app) {
   }));
   
   app.use(passport.initialize());
-  app.use(passport.session())
-  
+  app.use(passport.session());
+
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));

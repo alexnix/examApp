@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('ProfileCtrl', function ($scope, UserService) {
-    $scope.page_title = "Edit Profile";
+  .controller('ProfileCtrl', function ($scope, UserService, ngDialog) {
+    $scope.page_title = "Dashboard";
 
     $scope.user = UserService.me;
     $scope.total_marks = 0; $scope.total_questions = 0;
@@ -33,6 +33,70 @@ angular.module('quizPortalApp')
 
 
     });	
+
+    $scope.openCropDialog = function() {
+        ngDialog.open({
+            template: "crop_template.html",
+            controller: ['$scope', '$http', 'Upload', function($scope, $http, Upload){
+                $scope.myImage='';
+                $scope.myCroppedImage='';
+
+                $scope.flag = true;
+                $scope.handleFileSelect=function(evt) {
+                    $scope.flag = false;
+
+                    var file=evt.currentTarget.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                      $scope.$apply(function($scope){
+                        $scope.myImage=evt.target.result;
+                      });
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                $scope.upload = function() {
+                    //upload($scope.myCroppedImage, '/api/uploads/profile');
+                    console.log($scope.myImage);
+                    var imageDataArray = $scope.myCroppedImage.split(',');
+
+                    var binary = atob(imageDataArray[1]);
+                    var array = new Uint8Array(binary.length)
+                    for( var i = 0; i < binary.length; i++ ) { 
+                        array[i] = binary.charCodeAt(i) 
+                    }
+                    var image = new Blob([array],{type:'image/png'});
+                    // var fd  = new FormData();
+                    // fd.append('file', $scope.myCroppedImage);
+                    // $http.post('/api/uploads/profile', fd, {
+                    //     transformRequest: angular.identity,
+                    //     headers: {'Content-Type': 'undefined'}
+                    // });
+
+
+                    Upload.upload({
+                        url: '/api/uploads/profile',
+                        file: image,
+                    }).progress(function (evt) {
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                        console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                    }).success(function (data, status, headers, config) {
+                        console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                        $(".profile-pic img").attr("src", $(".profile-pic img").attr("src")+new Date().getTime());
+                        $scope.closeThisDialog();
+                        Materialize.toast('Profiel picture changed !', 4000);
+                    }).error(function (data, status, headers, config) {
+                        console.log('error status: ' + status);
+                    })
+                }
+
+                //$('#fileInput').on('change', handleFileSelect);
+                //angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+            }],
+        });
+    };
+
+    $scope.avatar ="http://halfnine.com.au/wp-content/uploads/2013/05/Brad_portrait1-540x540.jpg";
 
     $scope.save = function() {
     	UserService.UpdateProfile({

@@ -1,6 +1,6 @@
 <div class="col-md-4 col-sm-6">
 	<div class="test-card card">
-		<div class="top">
+		<!-- <div class="top">
 			<h2>{{test.name}}</h2>
 			<hr/>
 			<div class="row">
@@ -47,7 +47,61 @@
 				<i class="fa fa-pencil fa-2x"></i>
 				Take Exam
 			</p>
-		</a>
+		</a> -->
 
+		<div class="new-top">
+			{{test.questions}} Questions, {{test.marks}} Marks
+			<br/>
+			{{test.name}}
+		</div>
+
+			<hr/>
+		
+		<div class="new-middle">
+			<a class="modal-trigger" href="#modal1" ng-hide="User" class="waves waves-effect waves-light"><h2>Take Test <i class="fa fa-arrow-circle-o-right"></i></h2></a>
+			<a ng-show="User" ui-sref="exam({id:test._id})" class="waves waves-effect waves-light"><h2>Take Test <i class="fa fa-arrow-circle-o-right"></i></h2></a>
+
+			Duration: {{test.duration | time}}
+			<br/>
+			Total Attendees: {{test.atendees}}
+
+			<div ng-show="User">
+				<p ng-hide="youAttepted(test._id)">
+					Not Attepted.
+					<span class="pull-right">FREE</span>
+				</p>
+
+				<p ng-show="youAttepted(test._id)">
+					Your Score: {{youAttepted(test._id)}}
+				</p>
+			</div>
+		</div>
+
+			<hr/>
+
+		<div>
+			Share Test
+			<div class="clearfix visible-xs"></div>
+			<span style="cursor:pointer" ng-click="shareFacebook(test._id)" class="fa-stack fa-lg">
+			  <i style="color:#3b5998;cursor:pointer" class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+			  <div class="clearfix"></div>
+			</span>
+			<span style="cursor:pointer" ng-click="shareGooglePlus(test._id)" class="fa-stack fa-lg">
+			  <i style="color:#d34836;cursor:pointer" class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+			  <div class="clearfix"></div>
+			</span>
+			<span style="cursor:pointer" ng-click="shareLinkedIn(test._id)" class="fa-stack fa-lg">
+			  <i style="color:#007bb6" class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+			  <div class="clearfix"></div>
+			</span>
+			<!-- <span style="cursor:pointer" ng-click="shareByMail=true" class="fa-stack fa-lg">
+			  <i class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+			  <div class="clearfix"></div>
+			</span> -->
+		</div>
 	</div>
 </div>

@@ -10,7 +10,9 @@ angular.module('quizPortalApp', [
   'ui.knob',
   'ngDialog',
   'autocomplete',
-  'oitozero.ngSweetAlert'
+  'oitozero.ngSweetAlert',
+  'ngImgCrop',
+  'ngFileUpload',
 ])
 
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
