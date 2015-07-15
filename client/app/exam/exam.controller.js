@@ -88,7 +88,7 @@ angular.module('quizPortalApp')
             FB.ui(
               {
                 method: 'share',
-                href: 'http://54.169.84.192/',
+                href: 'http://testbharat.com/',
               },
               // callback
               function(response) {

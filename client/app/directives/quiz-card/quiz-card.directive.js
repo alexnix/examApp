@@ -33,7 +33,7 @@ angular.module('quizPortalApp')
           popit('https://www.facebook.com/sharer/sharer.php?u='+shareUrl);
         };
 
-        scope.shareLinkedin = function(id) {
+        scope.shareLinkedIn = function(id) {
           var shareUrl = location.protocol + '//' + location.host + "/exam/" + id;
           popit('https://www.linkedin.com/shareArticle?mini=true&url='+shareUrl);
         };

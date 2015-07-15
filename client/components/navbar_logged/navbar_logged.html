@@ -14,3 +14,51 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal" ng-controller="ModalCtrl">
+  <ul class="tabs">
+      <li class="tab col s3"><a class="waver waves-effect waves-dark active" href="#login">Login</a></li>
+      <li class="tab col s3"><a class="waver waves-effect waves-dark" href="#register">Register</a></li>
+  </ul>
+  <div id="login" class="col s12">
+      <form class="col s12" name="loginForm">
+          <div class="container-fluid">
+  
+              <a ng-click="f()" class="btn"><i class="fa fa-facebook"></i> Login with Facebook</a>
+              <a ng-click="t()" class="btn"><i class="fa fa-twitter"></i> Login with Twitter</a>
+              <!-- <a ng-click="g()" class="btn"><i class="fa fa-google-plus"></i> Login with Google+</a> -->
+
+              <div class="or-use-email">or user email</div>
+              <!--LOGIN FORM-->
+              <form name="loginForm"  novalidate>
+                <input placeholder="Email" name="email" ng-model="login.email" type="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
+                <input placeholder="Password" ng-model="login.password" type="password" required>
+
+                <input type="submit" ng-disabled="loginForm.$invalid" ng-click="doLogin()" value="Login" class="waves waves-effect btn-flat pull-right">
+              </form>
+
+          </div>
+      </form>
+  </div>
+  <div id="register" class="col s12">
+      <form name="registerForm">
+          <div class="container-fluid">
+            <!--REGISTER FORM-->
+            <form name="register" ng-submit="doRegister()" novalidate>
+              <input placeholder="Name" ng-model="register.name" type="text" required>
+              <input placeholder="Email" ng-model="register.email" type="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
+              <input placeholder="Password (min. 8 characters)" ng-model="register.password" ng-minlength="8" type="password" required>
+              <input placeholder="Retype Password" ng-model="register.retype_password" match="register.password" type="password" required>
+
+              <input type="submit" ng-disabled="registerForm.$invalid" value="Register" ng-click="doRegister()" class="waves waves-effect btn-flat pull-right">
+            </form>
+          
+          </div>
+      </form>
+  </div>
+</div>

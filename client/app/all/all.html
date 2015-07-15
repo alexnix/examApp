@@ -1,0 +1,25 @@
+<div class="page-wrap">
+	<div ng-include="'components/navbar_logged/navbar_logged.html'"></div>
+
+	<div class="container page dashboard">
+		<div class="container-fluid">
+		</div>
+		
+		<div class="col-sm-2">
+			<aside>
+				<ul class="categories">
+					<li ng-click="filterinCateg=null" class="btn white">All Exams</li>
+					<li class="btn white" ng-click="addTag(menu_item)" ng-repeat="menu_item in categories">{{menu_item}}</li>
+				</ul>
+			</aside>
+		</div>
+		<div class="col-sm-10">
+			<!-- <div class="container-fluid">
+				<array-input tags="tags" placeholder="Search Exams By Tag"></array-input>
+			</div>
+			<br/>{{tests}}{{filterinCateg}} -->
+			<quiz-card ng-repeat="test in tests" ng-show="filterinCateg == test.category || !filterinCateg"></quiz-card>
+		</div>
+	</div>
+</div>
+
