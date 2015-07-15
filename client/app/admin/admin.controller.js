@@ -48,6 +48,7 @@ angular.module('quizPortalApp')
     	if( $scope.exam == null )
 	    	$http.get('/api/admin/exam/'+id).then(function(res){
 	    		$scope.exam = res.data;
+                $scope.exam.duration = $scope.exam.duration/60;
 	    		$("section.edit-panel").slideDown();
 	    	});
     }
@@ -115,7 +116,7 @@ angular.module('quizPortalApp')
             marks += question.marks;
         });
         $scope.exam.marks = marks;
-
+        $scope.exam.duration = $scope.exam.duration * 60;
     	$http.put('/api/admin/exam/'+$scope.exam._id, $scope.exam).then(function(){
     		$("section.edit-panel").slideUp();
     		$scope.exam = null;	

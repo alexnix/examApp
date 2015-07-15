@@ -62,7 +62,7 @@ angular.module('quizPortalApp')
         $http.get('/api/exam').then(function(res){
             $scope.tests = res.data;
             res.data.forEach(function(test){
-                if ( $scope.categories.indexOf(test.category) && test.category )
+                if ( $scope.categories.indexOf(test.category) == -1 && test.category )
                     $scope.categories.push(test.category);
                 //console.log(test);
             });
@@ -72,6 +72,7 @@ angular.module('quizPortalApp')
     loadExams();
 
     $scope.selectCateg = function(categ) {
+        //alert(1);
         $scope.filterinCateg = categ;
     };
 
