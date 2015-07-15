@@ -4,8 +4,8 @@ var db = require('../../db.js');
 
 module.exports = function(){
 	passport.use(new FacebookStrategy({
-	    clientID: '780374538721879',
-	    clientSecret: '672b125b8810b9f49f0ed46b12ce2a2d',
+	    clientID: '278486295658221',
+	    clientSecret: '021fcc8903227a6a967d73ff0457ea72',
 	    callbackURL: "/api/auth/facebook/callback",
 	    enableProof: true,
 	    scope: ['email'],

@@ -37,13 +37,12 @@
       <div class="container-fluid">
         <span class="categ" ng-repeat="categ in categories" ng-click="selectCateg(categ)">{{categ}}</span>
         <p>
-          <array-input tags="tags" placeholder="Search Exams By Tag"></array-input>
         </p>
       </div>
 
       <div class="clearfix"></div>
 
-      <quiz-card ng-repeat="test in tests" ng-show="test.category == filterinCateg && matchesTags(test.tags)"></quiz-card>
+      <quiz-card ng-repeat="test in tests"></quiz-card>
 
   </section>
   
