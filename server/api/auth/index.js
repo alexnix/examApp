@@ -14,10 +14,10 @@ router.post('/local/register', controller.register);
 router.post('/local/login', passport.authenticate('local'), controller.loginLocal);
 
 router.get('/facebook', passport.authenticate('facebook'));
-router.get('/facebook/callback', passport.authenticate('facebook', { successRedirect: '/dashboard', failureRedirect: '/', scope: ['email'] }));
+router.get('/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/', scope: ['email'] }));
 
 router.get('/twitter', passport.authenticate('twitter'));
-router.get('/twitter/callback', passport.authenticate('twitter',{ successRedirect: '/dashboard', failureRedirect: '/'}));
+router.get('/twitter/callback', passport.authenticate('twitter',{ successRedirect: '/', failureRedirect: '/'}));
 
 router.get('/logout', function(req, res){
 	req.logout();

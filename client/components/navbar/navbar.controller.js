@@ -51,7 +51,8 @@ angular.module('quizPortalApp')
       UserService.Register($scope.register).then(function(data){
         UserService.LoginLocal($scope.register).then(function(res){
           $('.modal-trigger').closeModal();
-          $state.go("dashboard");
+          //$state.go("dashboard");
+          window.location.reload();
         });
       }, function(){
         alert("Registration failed. Please try again.");
@@ -61,7 +62,8 @@ angular.module('quizPortalApp')
     $scope.doLogin = function() {
       UserService.LoginLocal($scope.login).then(function(res){
         $('.modal-trigger').closeModal();
-        $state.go("dashboard");
+        //$state.go("dashboard");
+        window.location.reload();
       }, function(){
         alert('Login failed. Please try again.');
       });
