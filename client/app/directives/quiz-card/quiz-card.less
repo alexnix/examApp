@@ -1,6 +1,15 @@
+div.test-card.shadow{
+	box-shadow: #8bc34a 0px 2px 5px 0px, #8bc34a 0px 2px 10px 0px;	
+}
+
+div.test-card.shadow.attempted{
+	box-shadow: #ff6e40 0px 2px 5px 0px, #ff6e40 0px 2px 10px 0px;	
+}
+
 div.test-card {
 	background-color: lighten(#efefef, 5%);
 	margin-bottom: 10px;
+
 
 	div.top {
 		padding: 10px;
@@ -65,19 +74,40 @@ div.test-card {
 	.new-top {
 		text-align: center;
 		font-size: 16px;
+		span.name {
+			color: #009688;
+			font-size: 22px;
+		}
+	}
+	hr:first-of-type{
+		margin-bottom: 5px;
 	}
 	.new-middle {
 		color: gray;
 		h2 {
-			font-size: 25px;
+			font-size: 21px;
+			text-transform: none;
+			color: #ff6e40;
 			cursor: pointer;
 		}
 		p {
-			margin-top: 10px;
+			margin-top: 10px;	
+		}
+		div.free-label {
+			overflow: auto;
 			span {
 				font-weight: bold;
 				color: #009688;
 			}
+		}
+	}
+	.new-bottom {
+		padding-bottom: 10px;
+		div.socials {
+			margin-top: -20px;
+		}
+		span {
+			padding-top: 10px;
 		}
 	}
 }

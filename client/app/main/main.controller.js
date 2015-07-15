@@ -61,6 +61,7 @@ angular.module('quizPortalApp')
     function loadExams() {
         $http.get('/api/exam').then(function(res){
             $scope.tests = res.data;
+            $scope.tests.slice(0,14);
             res.data.forEach(function(test){
                 if ( $scope.categories.indexOf(test.category) == -1 && test.category )
                     $scope.categories.push(test.category);
