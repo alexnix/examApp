@@ -1,24 +1,23 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('ProfileCtrl', function ($scope, UserService, ngDialog) {
+  .controller('ProfileCtrl', function ($scope, UserService, ngDialog, $rootScope) {
     $scope.page_title = "Dashboard";
 
     $scope.total_marks = 0; $scope.total_questions = 0;
     $scope.categories = new Array();
         
 
-    if(!UserService.me)
-        UserService.Auth().then(function(res){
-        // User is authenticated
+    UserService.Auth().then(function(res){
+    // User is authenticated
         UserService.Me(res.data);
         $rootScope.User = UserService.me;
-      }, function(){
+    }, function(){
         $rootScope.User = null;
-      });
+    });
 
     $scope.user = UserService.me;
-    
+
 
 
     $scope.user.exams.forEach(function(exam){
