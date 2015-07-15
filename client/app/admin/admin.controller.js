@@ -116,7 +116,7 @@ angular.module('quizPortalApp')
             marks += question.marks;
         });
         $scope.exam.marks = marks;
-        $scope.exam.duration = $scope.exam.duration * 60;
+        $scope.exam.duration *= 60;
     	$http.put('/api/admin/exam/'+$scope.exam._id, $scope.exam).then(function(){
     		$("section.edit-panel").slideUp();
     		$scope.exam = null;	
