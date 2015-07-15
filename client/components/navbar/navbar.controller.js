@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('NavbarCtrl', function ($scope, $location, UserService, $rootScope) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -16,6 +16,14 @@ angular.module('quizPortalApp')
     ];
 
     $scope.isCollapsed = true;
+
+    $scope.logout = function() {
+      UserService.Logout().then(function(){
+        $rootScope.User = null;
+        window.location.reload();
+
+      })
+    }
 
     $scope.isActive = function(route) {
       return route === $location.path();
@@ -71,5 +79,6 @@ angular.module('quizPortalApp')
     $scope.g = function(){
         window.location.replace('/api/auth/google');
     };
+
 
   });

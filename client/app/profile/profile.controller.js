@@ -4,10 +4,23 @@ angular.module('quizPortalApp')
   .controller('ProfileCtrl', function ($scope, UserService, ngDialog) {
     $scope.page_title = "Dashboard";
 
-    $scope.user = UserService.me;
     $scope.total_marks = 0; $scope.total_questions = 0;
     $scope.categories = new Array();
+        
+
+    if(!UserService.me)
+        UserService.Auth().then(function(res){
+        // User is authenticated
+        UserService.Me(res.data);
+        $rootScope.User = UserService.me;
+      }, function(){
+        $rootScope.User = null;
+      });
+
+    $scope.user = UserService.me;
     
+
+
     $scope.user.exams.forEach(function(exam){
     	$scope.total_marks += exam.score;
     	$scope.total_questions += exam.questions || 0;

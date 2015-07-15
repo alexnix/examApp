@@ -27,7 +27,8 @@ angular.module('quizPortalApp', [
 
 
   $rootScope.$on('$stateChangeStart', function (event, next) {
-    if( next.data.isPrivate )
+    if( next.data.isPrivate ){
+      //alert(1);
       UserService.Auth().then(function(res){
         // User is authenticated
         UserService.Me(res.data);
@@ -35,6 +36,7 @@ angular.module('quizPortalApp', [
         // User is not authenticated
         $state.go('main');
       });
+    }
   });
 
   UserService.Auth().then(function(res){
