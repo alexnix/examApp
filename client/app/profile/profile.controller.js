@@ -18,8 +18,6 @@ angular.module('quizPortalApp')
 
     $scope.user = UserService.me;
 
-
-
     $scope.user.exams.forEach(function(exam){
     	$scope.total_marks += exam.score;
     	$scope.total_questions += exam.questions || 0;

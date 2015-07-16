@@ -6,7 +6,7 @@ angular.module('quizPortalApp')
 
     UserService.GetUser($stateParams.id).then(function(result){
     	$scope.user = result.data;
-    	
+    	$scope.page_title = result.data.name + '`s public profile on Test Bharat ';
     	$scope.total_marks = 0; $scope.total_questions = 0;
 	    $scope.categories = new Array();
 	    

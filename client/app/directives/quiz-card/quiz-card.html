@@ -54,7 +54,7 @@
 		</a> -->
 
 		<div class="new-top">
-			{{test.questions}} Questions, Duration {{test.duration | time}}
+			{{test.questions}} Questions in {{test.duration | time}}
 			<br/>
 			<span class="name">{{test.name}}</span>
 		</div>
@@ -62,7 +62,8 @@
 			<hr/>
 		
 		<div class="new-middle">
-			<a class="modal-trigger" href="#modal1" ng-hide="User" class="waves waves-effect waves-light"><h2>Take Test <i class="fa fa-arrow-circle-o-right"></i></h2></a>
+			<a ng-click="showLogin()" ng-hide="User" class="waves waves-effect waves-light"><h2>Take Test <i class="fa fa-arrow-circle-o-right"></i></h2></a>
+
 			<a ng-show="User" ui-sref="exam({id:test._id})" class="waves waves-effect waves-light"><h2>Take Test <i class="fa fa-arrow-circle-o-right"></i></h2></a>
 
 			Marks: {{test.marks}}

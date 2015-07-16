@@ -92,7 +92,7 @@ angular.module('quizPortalApp')
               },
               // callback
               function(response) {
-                if (response && !response.error_code) {
+                if ((response && !response.error_code)) {
                   //alert('Posting completed.');
 
                    $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
@@ -103,7 +103,7 @@ angular.module('quizPortalApp')
                     $rootScope.results = results = res.data.results;
                     console.log(res.data);
                   });
-                   window.open(location.protocol + '//' + location.host + "/me", '_blank');
+                   window.open(location.protocol + '//' + location.host + "/dashboard", '_blank');
                   //$http.post("");
                   $rootScope.User.hasShared = true;
                 } else {

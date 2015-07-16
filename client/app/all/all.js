@@ -9,6 +9,9 @@ angular.module('quizPortalApp')
         controller: 'AllCtrl',
         data: {
         	isPrivate: false,
+        },
+        params: {
+        	category: null,
         }
       });
   });

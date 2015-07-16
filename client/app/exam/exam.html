@@ -34,10 +34,17 @@
 		</div>
 		<div class="col-sm-3" ng-hide="timeUp && !isCorrect(questionNo()-1)">
 			<h3>Answer</h3>
-			<p ng-repeat="option in question.options">
+			
+			<p ng-repeat="option in question.options" ng-hide="question.singleAnswer">
 		      <input type="checkbox" ng-disabled="timeUp" id="{{$index}}" ng-model="option.value"/>
 		      <label for="{{$index}}">{{option.text}}</label>
-		    </p>		    
+		    </p>
+
+		    <p ng-repeat="option in question.options" ng-show="question.singleAnswer">
+		      <input name="g" type="radio" ng-disabled="timeUp" id="{{'s'+$index}}" value="{{option.text}}" ng-model="question.ans"/>
+		      <label for="{{'s'+$index}}">{{option.text}}</label>
+		    </p>	
+
 		</div>
 	
 		<div class="col-sm-3" ng-show="timeUp && !isCorrect(questionNo()-1)">

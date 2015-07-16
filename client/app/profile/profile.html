@@ -41,7 +41,7 @@
 			<div class="card sm-card" ng-repeat="category in categories">
 				<div class="row">
 					<div class="col-xs-3 sc-left">
-						<knob data-readOnly=true knob-data="{{(100*category.marks)/category.total}}" data-fgColor="#ffcc80"></knob>
+						<knob data-readOnly=true knob-data="{{ ((100*category.marks)/category.total) > 0 ? (100*category.marks)/category.total:0 }}" data-fgColor="#ffcc80"></knob>
 					</div>
 					<div class="col-xs-9">	
 						<div class="col-xs-8 the-label">
@@ -99,7 +99,7 @@
 			<div class="card sm-card" ng-repeat="exam in user.exams |  orderBy: '-date'">
 
 				<div class="col-xs-3 sc-left">
-					<knob data-readOnly=true knob-data="{{(100*exam.score)/exam.total}}" konb-options="options"></knob>
+					<knob data-readOnly=true knob-data="{{ ((100*exam.score)/exam.total) > 0 ? (100*exam.score)/exam.total : 0}}" konb-options="options"></knob>
 				</div>
 				<div class="col-xs-9">
 					<h5>

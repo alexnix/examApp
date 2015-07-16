@@ -54,13 +54,26 @@ div.navbar {
 div#modal1 {
 	width: 400px;
 	overflow: hidden;
-	height: 400px;
-	ul.tabs li.tab a:hover {
-		text-decoration: none;
-		color: #ee6e73;
+	a.btn {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 10px;
+		&:hover {
+			color: white;
+		}
+	}
+	a.btn.fb {
+		background-color: #3b5998 !important;
+	}
+	a.btn.tw {
+		background-color: #4099FF !important;
 	}
 	form {
-		padding: 30px;
+		padding: 30px 10px;
+	}
+	.or-use-email {
+		text-align: center;
+		margin-bottom: 10px;
 	}
 }
 

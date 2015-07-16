@@ -28,9 +28,14 @@ exports.index = function(req, res) {
 exports.getExam = function(req, res) {
 	db.exams.findOne({_id: req.params.id}, function(err, doc){
 		doc.questions.forEach(function(question){
+      var cont = 0;
 			question.options.forEach(function(option){
-				option.isCorrect = null;
+        if( option.isCorrect )
+				  cont++;
+        option.isCorrect = null;
 			});
+      if( cont == 1 )
+        question.singleAnswer = true;
 		});
 		res.status(200).send(doc);
 	});
@@ -51,22 +56,32 @@ exports.submitExam = function(req, res, next) {
       index.option = -1;
       index.question = index.question + 1;
 
-      req.body.results[index.question] = [];
-      question.options.forEach(function(option){
-        index.option ++;
-        if( req.body.questions[index.question].options[index.option].value === undefined)
-          req.body.questions[index.question].options[index.option].value = false;
-        if ( option.isCorrect != req.body.questions[index.question].options[index.option].value )
-          ok = false;
+      if( !req.body.questions[index.question].singleAnswer ){
+        req.body.results[index.question] = [];
+        question.options.forEach(function(option){
+          index.option ++;
+          if( req.body.questions[index.question].options[index.option].value === undefined)
+            req.body.questions[index.question].options[index.option].value = false;
+          if ( option.isCorrect != req.body.questions[index.question].options[index.option].value )
+            ok = false;
 
-        if( option.isCorrect )
-          req.body.results[index.question].push(option);
-      });
+          if( option.isCorrect )
+            req.body.results[index.question].push(option);
+        });
+      } else {
+        question.options.forEach(function(option){
+          if ( option.isCorrect )
+            if( option.text != req.body.questions[index.question].ans )
+              ok = false;
+        });
+      }
 
       if ( ok ) {
         req.body.results[index.question] = true;
         score = score + question.marks;
-      } //else req.body.results.push(false);
+      } else {
+        score = score - question.marks_negative;
+      }
     });
 
     // Relative score

@@ -33,6 +33,7 @@ angular.module('quizPortalApp')
 	    		text:'',
                 id: generateUUID(),
                 marks: 1,
+                marks_negative: 0,
 	    		options: [{
 	    			checked: false,
 	    			isCorrect: false,
@@ -57,6 +58,7 @@ angular.module('quizPortalApp')
     	$scope.exam.questions.push({
     		text:'',
             marks: 1,
+            marks_negative: 0,
             id: generateUUID(),
     		options: [
     			{

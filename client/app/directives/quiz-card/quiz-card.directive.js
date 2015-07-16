@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .directive('quizCard', function ($rootScope) {
+  .directive('quizCard', function ($rootScope, ngDialog) {
     return {
       templateUrl: 'app/directives/quiz-card/quiz-card.html',
       restrict: 'EA',
@@ -36,6 +36,10 @@ angular.module('quizPortalApp')
         scope.shareLinkedIn = function(id) {
           var shareUrl = location.protocol + '//' + location.host + "/exam/" + id;
           popit('https://www.linkedin.com/shareArticle?mini=true&url='+shareUrl);
+        };
+
+        scope.showLogin = function(){
+          ngDialog.open(theLoginModal);
         };
 
         function popit(url) {

@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('quizPortalApp')
-  .controller('AllCtrl', function ($scope, $http) {
+  .controller('AllCtrl', function ($scope, $http, $stateParams) {
     $scope.page_title = "All Exams";
 
-	// $('.modal-trigger').leanModal();
-	// $('#modal1').openModal();
+	$scope.filterinCateg = $stateParams.category;
 
     $scope.categories = [];
     function loadExams() {
@@ -16,7 +15,6 @@ angular.module('quizPortalApp')
                     $scope.categories.push(test.category);
                 //console.log(test);
             });
-            $scope.filterinCateg = null;
 	    });
     };
     loadExams();

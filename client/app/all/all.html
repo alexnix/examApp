@@ -9,7 +9,11 @@
 			<aside>
 				<ul class="categories">
 					<li ng-click="filterinCateg=null" class="btn white">All Exams</li>
-					<li class="btn white" ng-click="addTag(menu_item)" ng-repeat="menu_item in categories">{{menu_item}}</li>
+					<li ng-class="{
+						'btn': true,
+						'white': filterinCateg != menu_item,
+						'grey lighten-2': filterinCateg == menu_item
+					}" ng-click="addTag(menu_item)" ng-repeat="menu_item in categories">{{menu_item}}</li>
 				</ul>
 			</aside>
 		</div>

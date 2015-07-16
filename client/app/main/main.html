@@ -9,33 +9,14 @@
   </section>
 
   <section class="quiz-preview">
-       <!-- <div class="row">
-        <div class="col top s12">
-          <ul class="tabs teal-text">
-            <li class="tab col s3"><a class="active" href="#test1">Tab 1</a></li>
-            <li class="tab col s3"><a href="#test2">Tab 2</a></li>
-            <li class="tab col s3"><a href="#test3">Tab 3</a></li>
-            <li class="tab col s3"><a href="#test4">Tab 4</a></li>
-          </ul>
-        </div>
-
-        <div id="test1" class="col s12">
-          <quiz-card ng-repeat="test in tests"></quiz-card>
-        </div>
-        <div id="test2" class="col s12">
-          <quiz-card ng-repeat="test in tests2"></quiz-card>
-        </div>
-        <div id="test3" class="col s12">
-          <quiz-card ng-repeat="test in tests3"></quiz-card>
-        </div>
-        <div id="test4" class="col s12">
-          Some more test here.
-        </div>
-      </div> -->
-    
     
       <div class="container-fluid">
-        <span class="categ" ng-repeat="categ in categories"><a ui-sref="all">{{categ}}</a></span>
+        <a ng-repeat="categ in categories" ui-sref="all({
+          category: categ,
+        })">
+          <span class="categ">{{categ}}</span>
+        </a>
+
         <p>
         </p>
       </div>
