@@ -71,6 +71,22 @@ angular.module('quizPortalApp')
 		Timer.Cancel();
 	});
 
+  $scope.clearAns = function(q) {
+    q.ans = null;
+    q.options.forEach(function(o){
+      o.value = false;
+    });
+  };
+
+  $scope.attemptedQ = function(){
+    var cont = 0;
+    $scope.exam.questions.forEach(function(q){
+      if ( $scope.touched(q) )
+        cont ++;
+    });
+    return cont;
+  };
+
   $scope.submitExam = function(){
     if( !$scope.timeUp === true )
       if( ! confirm('Are you sure you want to finish exam ahead of time ?') )

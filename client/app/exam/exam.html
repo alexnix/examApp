@@ -3,6 +3,10 @@
 <div class="container narrow page exam-view">
 	{{api_quiz}}
 	<div class="container-fluid">
+		<div class="col-sm-6" style="padding-left:0px">
+			Total Questions: {{exam.questions.length}} <Br/>
+			Attempted Questions: {{attemptedQ()}}
+		</div>
 		<span class="pull-right">
 			<button class="btn red" ng-disabled="timeUp" ng-click="submitExam()">Submit</button>
 		</span>
@@ -52,6 +56,8 @@
 		      <input name="g" type="radio" ng-disabled="timeUp" id="{{'s'+$index}}" value="{{option.text}}" ng-model="question.ans"/>
 		      <label for="{{'s'+$index}}">{{option.text}}</label>
 		    </p>	
+
+		    <button class="btn" ng-click="clearAns(question)">Clear Answer</button>
 
 		</div>
 	
