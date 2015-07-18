@@ -14,11 +14,11 @@ angular.module('quizPortalApp')
     	var seconds = input - hours * 3600 - minutes * 60;
     	var output = '';
     	if ( hours > 0 )
-    		output += pad(hours) + "h";
+    		output += pad(hours) + "hr. ";
     	if( minutes > 0 ) 
-    		output += pad(minutes) + "m";
+    		output += pad(minutes) + "min. ";
     	if( seconds > 0 )
-    		output += pad(seconds) + "s"
+    		output += pad(seconds) + "sec."
     	return output || "No Limit";
     };
   });
