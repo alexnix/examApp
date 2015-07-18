@@ -36,7 +36,7 @@
 			</p>
 			
 			<p>
-				<input type="checkbox" id="{{questionNo()}}notsure" ng-model="question.notSure"/>
+				<input ng-disabled="timeUp" type="checkbox" id="{{questionNo()}}notsure" ng-model="question.notSure"/>
 			    <label for="{{questionNo()}}notsure">Not sure about the answer</label>
 			</p>
 		</div>
@@ -62,11 +62,13 @@
 		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="option.value"/>
 		      <label for="{{$index}}">{{option.text}}</label>
 		    </p>
-		    Correct Answer Was		
-			<p ng-repeat="option in results[questionNo()-1]">
-		      <input type="checkbox" disabled="true" id="{{$index}}" checked="true" />
-		      <label for="{{$index}}">{{option.text}}</label>
-		    </p>
+		    <div ng-show="showCorrect">
+			    Correct Answer Was		
+				<p ng-repeat="option in results[questionNo()-1]">
+			      <input type="checkbox" disabled="true" id="{{$index}}" checked="true" />
+			      <label for="{{$index}}">{{option.text}}</label>
+			    </p>
+			</div>
 
 		</div>
 
@@ -95,19 +97,23 @@
 						'seen': q.seen,
 						'touched': touched(q),
 						'notSure': q.notSure,
-						'correct': isCorrect($index) && timeUp,
-						'incorrect': !isCorrect($index) && timeUp,
+						'correct': isCorrect($index) && timeUp && showCorrect,
+						'incorrect': !isCorrect($index) && timeUp && showCorrect,
 					}">
 					{{$index+1}}
 				</div>
 			</div>
 
 			<div class="legend">
+				<h4>Color code</h4>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2"></div>Question not seen</p>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 seen"></div>Question seen</p>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 touched"></div>Question answered</p>
 				<p class="qllegend"><div class="legend question-label card grey active seen lighten-2 notSure"></div>Question not sure</p>
 				<p class="qllegend"><div class="legend question-label card grey active seen touched lighten-2 notSure"></div>Question answered but not sure</p>
+				<hr/>
+				<p class="qllegend"><div class="legend question-label card grey active lighten-2 correct"></div>Corect Ansert</p>
+				<p class="qllegend"><div class="legend question-label card grey active lighten-2 incorrect"></div>Wrong Answer</p>
 			</div>
 
 		</div>

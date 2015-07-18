@@ -85,6 +85,7 @@ angular.module('quizPortalApp')
         },
         controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
           $rootScope.theTimer.Cancel();
+          $rootScope.timeUp = true;
           $scope.share = function(){
             FB.ui(
               {
@@ -93,12 +94,12 @@ angular.module('quizPortalApp')
               },
               // callback
               function(response) {
-                if ((response && !response.error_code)) {
+                if (!(response && !response.error_code)) {
                   //alert('Posting completed.');
 
                    $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
                     
-                    $rootScope.timeUp = true;
+                    $rootScope.showCorrect = true;
                     console.log(res.data);
                     $scope.score = res.data.score;
                     $rootScope.results = results = res.data.results;
@@ -107,7 +108,7 @@ angular.module('quizPortalApp')
                    window.open(location.protocol + '//' + location.host + "/dashboard", '_blank');
                   //$http.post("");
                   $rootScope.User.hasShared = true;
-                } else {
+                } else {$rootScope.showCorrect = true;
                   //alert('Error while posting.');
                 }
               }

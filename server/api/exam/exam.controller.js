@@ -55,9 +55,9 @@ exports.submitExam = function(req, res, next) {
       var ok = true;
       index.option = -1;
       index.question = index.question + 1;
+      req.body.results[index.question] = [];
 
       if( !req.body.questions[index.question].singleAnswer ){
-        req.body.results[index.question] = [];
         question.options.forEach(function(option){
           index.option ++;
           if( req.body.questions[index.question].options[index.option].value === undefined)
@@ -71,8 +71,10 @@ exports.submitExam = function(req, res, next) {
       } else {
         question.options.forEach(function(option){
           if ( option.isCorrect )
-            if( option.text != req.body.questions[index.question].ans )
+            if( option.text != req.body.questions[index.question].ans ){
               ok = false;
+              req.body.results[index.question].push(option);
+            }
         });
       }
 
@@ -126,6 +128,18 @@ exports.getQuestion = function(req, resp){
     doc.questions.forEach(function(question){
       if( question.id == req.params.question )
         q = question;
+    });
+    q.examName = doc.name;
+    resp.status(200).send(q);
+  });
+};
+
+exports.getQuestionsCorrect = function(req, resp){
+  var q;
+  db.exams.findOne({_id: req.params.quiz}, function(err, doc){
+    doc.questions.forEach(function(question){
+      if( question.id == req.params.question )
+        q = question.data;
     });
     q.examName = doc.name;
     resp.status(200).send(q);
