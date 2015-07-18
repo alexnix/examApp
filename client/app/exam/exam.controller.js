@@ -109,7 +109,7 @@ angular.module('quizPortalApp')
                   //$http.post("");
                   $rootScope.User.hasShared = true;
                 } else {
-                  //alert('Error while posting.');
+                  //$rootScope.showCorrect = true;
                 }
               }
             );

@@ -59,7 +59,7 @@
 			<h3>Answer</h3>
 			You Answered
 			<p ng-repeat="option in question.options">
-		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="option.value"/>
+		      <input type="checkbox" disabled="true" id="{{$index}}" ng-model="option.value || (question.ans == option.text )"/>
 		      <label for="{{$index}}">{{option.text}}</label>
 		    </p>
 		    <div ng-show="showCorrect">
