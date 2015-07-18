@@ -58,12 +58,12 @@
 				<p>
 					Question Positiov Marks
 				</p>
-				<input type="number" min=0 max=5 ng-model="question.marks">
+				<input type="number" step="0.01" min=0 ng-model="question.marks">
 
 				<p>
 					Question Negative Marks
 				</p>
-				<input type="number" min=0 max=5 ng-model="question.marks_negative">
+				<input type="number" step="0.01" min=0 ng-model="question.marks_negative">
 					
 				<p>
 					Question Options

@@ -13,8 +13,26 @@ div.exam-view {
 			padding: 20px;
 			margin: 5px;
 			border-bottom: 5px solid white;
+			border-top: 5px solid transparent;
 			text-align: center;
 			width: 60px;
+		}
+
+		div.legend {
+			color: grey;
+			p {
+				display: block;
+				width: 100%;
+				overflow: auto;
+				line-height: 28px;
+			}
+		}
+
+		div.question-label.legend {
+			display: block;
+			font-size: 13px;
+			padding: 5px;
+			width: 30px;
 		}
 
 		div.question-label.seen {
@@ -27,6 +45,10 @@ div.exam-view {
 
 		div.question-label.touched {
 			border-bottom: 5px solid #2196F3;
+		}
+
+		div.question-label.notSure {
+			border-top: 5px solid #ffc107;
 		}
 
 		div.question-label.correct {

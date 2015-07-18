@@ -30,7 +30,15 @@
 			})" ng-show="timeUp">See discussions for this question</a>
 
 			<p ng-bind-html="question.text"></p>
-			<small>{{question.marks}} marks</small>
+
+			<p>
+				<small>{{question.marks}} marks</small>
+			</p>
+			
+			<p>
+				<input type="checkbox" id="{{questionNo()}}notsure" ng-model="question.notSure"/>
+			    <label for="{{questionNo()}}notsure">Not sure about the answer</label>
+			</p>
 		</div>
 		<div class="col-sm-3" ng-hide="timeUp && !isCorrect(questionNo()-1)">
 			<h3>Answer</h3>
@@ -86,12 +94,22 @@
 						'active waves waves-effect grey lighten-2': !isInactive($index),
 						'seen': q.seen,
 						'touched': touched(q),
+						'notSure': q.notSure,
 						'correct': isCorrect($index) && timeUp,
 						'incorrect': !isCorrect($index) && timeUp,
 					}">
 					{{$index+1}}
 				</div>
 			</div>
+
+			<div class="legend">
+				<p class="qllegend"><div class="legend question-label card grey active lighten-2"></div>Question not seen</p>
+				<p class="qllegend"><div class="legend question-label card grey active lighten-2 seen"></div>Question seen</p>
+				<p class="qllegend"><div class="legend question-label card grey active lighten-2 touched"></div>Question answered</p>
+				<p class="qllegend"><div class="legend question-label card grey active seen lighten-2 notSure"></div>Question not sure</p>
+				<p class="qllegend"><div class="legend question-label card grey active seen touched lighten-2 notSure"></div>Question answered but not sure</p>
+			</div>
+
 		</div>
 	</div>
 </div>

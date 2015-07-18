@@ -84,6 +84,7 @@ angular.module('quizPortalApp')
           exam: $scope.exam,
         },
         controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+          $rootScope.theTimer.Cancel();
           $scope.share = function(){
             FB.ui(
               {
@@ -96,7 +97,7 @@ angular.module('quizPortalApp')
                   //alert('Posting completed.');
 
                    $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
-                    $rootScope.theTimer.Cancel();
+                    
                     $rootScope.timeUp = true;
                     console.log(res.data);
                     $scope.score = res.data.score;
@@ -158,6 +159,9 @@ angular.module('quizPortalApp')
   };
 
   $scope.touched = function(q){
+    if( q.ans )
+      return true;
+
   	var flag = false;
   	q.options.forEach(function(option){
   		if( option.value == true )
