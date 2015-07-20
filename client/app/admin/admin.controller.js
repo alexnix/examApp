@@ -29,6 +29,7 @@ angular.module('quizPortalApp')
 	    	duration: 10,
             category: null,
             atendees: 0,
+            instructions: [{}],
 	    	questions: [{
 	    		text:'',
                 id: generateUUID(),
@@ -45,12 +46,20 @@ angular.module('quizPortalApp')
 	    $("section.edit-panel").slideDown();
     };
 
+    $scope.addInstruction = function() {
+        $scope.exam.instructions.push({});
+    }
+
     $scope.getExam = function(id) {
     	if( $scope.exam == null )
 	    	$http.get('/api/admin/exam/'+id).then(function(res){
 	    		$scope.exam = res.data;
                 $scope.exam.duration = $scope.exam.duration/60;
 	    		$("section.edit-panel").slideDown();
+
+                if( !$scope.exam.instructions ){
+                    $scope.exam.instructions = [{}];
+                }
 	    	});
     }
 

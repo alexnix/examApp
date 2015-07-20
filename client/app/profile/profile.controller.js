@@ -92,7 +92,8 @@ angular.module('quizPortalApp')
                         console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
                     }).success(function (data, status, headers, config) {
                         console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-                        $(".profile-pic img").attr("src", $(".profile-pic img").attr("src")+new Date().getTime());
+                        $scope.User.avatar = $scope.User._id + ".png";
+                        $(".profile-pic img").attr("src", $(".profile-pic img.profile").attr("src")+new Date().getTime());
                         $scope.closeThisDialog();
                         Materialize.toast('Profiel picture changed !', 4000);
                     }).error(function (data, status, headers, config) {

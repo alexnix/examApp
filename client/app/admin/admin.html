@@ -33,6 +33,16 @@
 				<p>Exam Tags</p>
 				<array-input tags="exam.tags" placeholder="Add Tag Andd Press Enter"></array-input>
 			</div>
+
+			<div class="form-item">
+				<p>Exam Intructions</p>
+				<p ng-repeat="instruction in exam.instructions track by $index">
+				<input type="text"  ng-model="instruction.text" placeholder="{{$index+1}}">
+				</p>
+				<button class="btn" ng-click="addInstruction()">Add Instruction</button>
+			</div>
+
+
 		</div>
 
 		<h2>Questions</h2>

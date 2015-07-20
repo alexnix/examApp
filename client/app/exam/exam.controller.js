@@ -8,6 +8,26 @@ angular.module('quizPortalApp')
   $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
   	$scope.exam = res.data;
 
+
+    var accept_terms = ngDialog.open({
+      template: 'instructions_dialog.html',
+      data: {
+        exam: $scope.exam,
+      },
+      closeByEscape: false,
+      closeByDocument: false,
+      showClose: false,
+      controller: ['$scope', '$rootScope', 'Timer', function($scope, $rootScope, Timer){
+        $scope.start = function() {
+          $scope.closeThisDialog();
+        };
+      }],
+    });
+
+    accept_terms.closePromise.then(function(){
+      Timer.Start();
+    });
+
    	Timer.Init($scope.exam.duration, function(){
   		$scope.timeUp = true;
 			$scope.submitExam();
@@ -17,7 +37,6 @@ angular.module('quizPortalApp')
     $rootScope.theTimer = Timer;
 
     $scope.ticker = Timer.Ticker();
-		Timer.Start();
 
     $scope.question = $scope.exam.questions[0];
     $scope.question.seen = true;
@@ -28,39 +47,6 @@ angular.module('quizPortalApp')
 		if( !$scope.timeUp === true ){
 		    if( !confirm("Are you sure you want to leave exam ?") )
 		    	event.preventDefault();
-
-//         event.preventDefault();
-//       //   SweetAlert.swal({
-//       //    title: "Are you sure?",
-//       //    text: "",
-//       //    type: "warning",
-//       //    showCancelButton: true,
-//       //    confirmButtonColor: "#DD6B55",
-//       //    confirmButtonText: "",
-//       //    closeOnConfirm: false,
-//       //    closeOnCancel: false
-//       //  }, 
-//       // function(confirm){ 
-//       //    if( confirm )
-//       // });
-
-
-
-// SweetAlert.swal({
-//    title: "Are you sure?",
-//    text: "You are about to leave the exam.",
-//    type: "warning",
-//    showCancelButton: true,
-//    confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, I give up",
-//    cancelButtonText: "Cancel",
-//    closeOnConfirm: false,
-//    closeOnCancel: false }, 
-// function(isConfirm){ 
-//   alert(1);
-//    if (isConfirm) 
-//     $state.go(toState);
-    
-// });
 
       }
 

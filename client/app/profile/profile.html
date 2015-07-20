@@ -6,7 +6,8 @@
 			<div class="card">
 				<div class="container-fluid">
 					<div class="col-sm-3 card-image profile-pic" ng-click="openCropDialog()">
-						<img ng-src="{{'assets/uploads/' + User.avatar + '?' + date}}"/>
+						<img ng-show="User.avatar" class="profile" ng-src="{{'assets/uploads/' + User.avatar + '?' + date}}"/>
+						<img ng-hide="User.avatar" ng-src="assets/images/default-avatar.png"/>
 						<div class="change">
 							<i class="fa fa-upload fa-3x"></i>
 						</div>

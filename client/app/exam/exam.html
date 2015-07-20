@@ -143,3 +143,33 @@
 </div>
   
 </script>
+
+
+
+
+<script type="text/ng-template" id="instructions_dialog.html">
+
+<div class="instructions_dialog">
+	<h2>{{ngDialogData.exam.category}} Exam</h2>
+	<p>
+		Exam Name: {{ngDialogData.exam.name}}
+	</p>
+
+	<p>
+		Exam Duration: {{ngDialogData.exam.duration | time}}
+	</p>
+
+	<h2>Instructions</h2>
+
+	<ol>
+		<li ng-repeat="instruction in ngDialogData.exam.instructions">{{instruction.text}}</li>
+	</ol>
+
+	<input type="checkbox" id="accept-termins" ng-model="accepted"/>
+	<label for="accept-termins">I agree to terms and conditions</label>
+	<div class="clearfix"></div>
+	<button class="btn" ng-click="start()" ng-disabled="!accepted">Start Exam</button>
+
+</div>
+  
+</script>
