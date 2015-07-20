@@ -4,12 +4,12 @@ angular.module('quizPortalApp')
   .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams, ngDialog, SweetAlert, $state, $rootScope) {
    
   // App Logic
-
+  var accept_terms;
   $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
   	$scope.exam = res.data;
 
 
-    var accept_terms = ngDialog.open({
+    accept_terms = ngDialog.open({
       template: 'instructions_dialog.html',
       data: {
         exam: $scope.exam,
@@ -44,11 +44,7 @@ angular.module('quizPortalApp')
   });
 
   $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
-		if( !$scope.timeUp === true ){
-		    if( !confirm("Are you sure you want to leave exam ?") )
-		    	event.preventDefault();
-
-      }
+		accept_terms.close();
 
 	});
 
