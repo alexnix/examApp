@@ -19,6 +19,10 @@ angular.module('quizPortalApp')
         }, 1000);
       },
 
+      getSeconds: function(){
+        return this.seconds;
+      },
+
       Stop: function() {
         $interval.cancel(this.tick);
         this.callback();

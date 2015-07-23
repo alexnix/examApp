@@ -7,7 +7,24 @@ angular.module('quizPortalApp')
   var accept_terms;
   $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
   	$scope.exam = res.data;
+    
+    $scope.$watch('exam', function(newVal, oldVal){
+      if( $rootScope.theTimer ){
+        newVal.duration = $rootScope.theTimer.getSeconds();
+        $http.post('/api/exam/session', {exam: newVal});
+      }
+    }, true);
 
+    Timer.Init($scope.exam.duration, function(){
+      $scope.timeUp = true;
+      $scope.submitExam();
+    });
+    $rootScope.timeUp = false;
+    $rootScope.theTimer = Timer;
+    $scope.ticker = Timer.Ticker();
+    $scope.question = $scope.exam.questions[0];
+    $scope.question.seen = true;
+    $scope.page_title = $scope.exam.name;
 
     accept_terms = ngDialog.open({
       template: 'instructions_dialog.html',
@@ -28,24 +45,10 @@ angular.module('quizPortalApp')
       Timer.Start();
     });
 
-   	Timer.Init($scope.exam.duration, function(){
-  		$scope.timeUp = true;
-			$scope.submitExam();
-		});
-    $rootScope.timeUp = false;
-
-    $rootScope.theTimer = Timer;
-
-    $scope.ticker = Timer.Ticker();
-
-    $scope.question = $scope.exam.questions[0];
-    $scope.question.seen = true;
-  	$scope.page_title = $scope.exam.name;
   });
 
   $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
 		accept_terms.close();
-
 	});
 
 
@@ -82,36 +85,73 @@ angular.module('quizPortalApp')
           exam: $scope.exam,
         },
         controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+          //start dialog controller
           $rootScope.theTimer.Cancel();
           $rootScope.timeUp = true;
+
+
+          $scope.g = function() {
+            var shareUrl = location.protocol + '//' + location.host;
+            popit('https://plus.google.com/share?url='+shareUrl);
+          };
+
+          $scope.f = function() {
+            var shareUrl = location.protocol + '//' + location.host;
+            popit('https://www.facebook.com/sharer/sharer.php?u='+shareUrl);
+          };
+
+          $scope.l = function() {
+            var shareUrl = location.protocol + '//' + location.host;
+            popit('https://www.linkedin.com/shareArticle?mini=true&url='+shareUrl);
+          };
+
+          function popit(url) {
+            var newwindow=window.open(url,'name','height=500,width=500');
+            if (window.focus) {newwindow.focus()}
+            return false;
+          };
+
+
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth()+1; //January is 0!
+
+          var yyyy = today.getFullYear();
+          if(dd<10){
+              dd='0'+dd
+          } 
+          if(mm<10){
+              mm='0'+mm
+          } 
+          $scope.today = dd+'/'+mm+'/'+yyyy;
+
+          $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
+            $rootScope.showCorrect = true;
+            console.log(res.data);
+            $scope.score = res.data.score;
+            $rootScope.results = results = res.data.results;
+            $scope.leResults = res.data
+            console.log(res.data);
+
+            $scope.contor = 0;
+            $rootScope.results.forEach(function(result){
+              if( result === true )
+                $scope.contor ++;
+            }); 
+
+          });
+
+
           $scope.share = function(){
             FB.ui(
               {
                 method: 'share',
                 href: 'http://testbharat.com/',
-              },
-              // callback
-              function(response) {
-                if ((response && !response.error_code)) {
-                  //alert('Posting completed.');
-
-                   $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
-                    
-                    $rootScope.showCorrect = true;
-                    console.log(res.data);
-                    $scope.score = res.data.score;
-                    $rootScope.results = results = res.data.results;
-                    console.log(res.data);
-                  });
-                   window.open(location.protocol + '//' + location.host + "/dashboard", '_blank');
-                  //$http.post("");
-                  $rootScope.User.hasShared = true;
-                } else {
-                  //$rootScope.showCorrect = true;
-                }
               }
             );
           };
+
+          //end dialog controller
         }],
       });
 

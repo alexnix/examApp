@@ -41,7 +41,7 @@
 			
 			<p>
 				<input ng-disabled="timeUp" type="checkbox" id="{{questionNo()}}notsure" ng-model="question.notSure"/>
-			    <label for="{{questionNo()}}notsure">Not sure about the answer</label>
+			    <label for="{{questionNo()}}notsure">Mark this question</label>
 			</p>
 		</div>
 		<div class="col-sm-3" ng-hide="timeUp && !isCorrect(questionNo()-1)">
@@ -115,8 +115,8 @@
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2"></div>Question not seen</p>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 seen"></div>Question seen</p>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 touched"></div>Question answered</p>
-				<p class="qllegend"><div class="legend question-label card grey active seen lighten-2 notSure"></div>Question not sure</p>
-				<p class="qllegend"><div class="legend question-label card grey active seen touched lighten-2 notSure"></div>Question answered but not sure</p>
+				<p class="qllegend"><div class="legend question-label card grey active seen lighten-2 notSure"></div>Question marked</p>
+				<p class="qllegend"><div class="legend question-label card grey active seen touched lighten-2 notSure"></div>Question answered and marked</p>
 				<hr/>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 correct"></div>Corect Ansert</p>
 				<p class="qllegend"><div class="legend question-label card grey active lighten-2 incorrect"></div>Wrong Answer</p>
@@ -130,16 +130,45 @@
 <script type="text/ng-template" id="submit_template.html">
 
 <div class="repot-dialog">
-	<h2>Exam checked</h2>
+	<h2>Congratulations</h2>
+	<p>You have completed {{ngDialogData.exam.name}}</p>
+	<hr/>
+	<h5>Share test with your friends</h5>
+	<p>I took a {{ngDialogData.exam.category}} test @ TestBharat</p>
+	<p>
+		<button class="btn" style="background-color:#3b5998;color:white" ng-click="f()"><i class="fa fa-facebook"></i> Facebook</button>
+		<button class="btn" style="background-color:#d34836;color:white" ng-click="g()"><i class="fa fa-google-plus"></i> Google Plus</button>
+		<button class="btn" style="background-color:#007bb6;color:white" ng-click="l()"><i class="fa fa-linkedin"></i> LinkedIn</button>
+	</p>
+	<hr/>
+	<table class="table">
+		<tr>
+			<td>Status</td>
+			<td>Submited on {{today}}</td>
+		</tr>
+		<tr>
+			<td>Time</td>
+			<td>{{ngDialogData.exam.duration | time}}</td>
+		</tr>
+		<tr>
+			<td>Total Questions</td>
+			<td>{{ngDialogData.exam.questions.length}}</td>
+		</tr>
+		<tr>
+			<td>Correct Questions</td>
+			<td>{{contor}}</td>
+		</tr>
+		<tr>
+			<td>Wrong Questions</td>
+			<td>{{ngDialogData.exam.questions.length-contor}}</td>
+		</tr>
+	</table>
 
-	<p ng-hide="User.hasShared">
-		Before you can see the results please take a moment and share our page. We appreciate that.
-		<br/>
-		<button class="btn btn-facebook" ng-click="share()"><i class="fa fa-facebook"></i> Share</button>
-	</p>
-	<p ng-show="User.hasShared">
-		Your score is {{score}}
-	</p>
+	<hr/>
+	<h4>Test Score</h4>
+	<h5>{{ ((100*leResults.score)/ngDialogData.exam.marks) > 0 ? ((100*leResults.score)/ngDialogData.exam.marks) : 0 }}%</h5>
+	<p>{{leResults.score}} out of {{ngDialogData.exam.marks}} marks</p>
+	
 </div>
   
 </script>

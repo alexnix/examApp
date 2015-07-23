@@ -7,5 +7,10 @@ exports.users = new Datastore({
 
 exports.exams = new Datastore({
 	filename: '../db/exams.db',
-	autoload: true
+	autoload: true,
+});
+
+exports.sessions = new Datastore({
+	filename: '../db/sessions.db',
+	autoload: true,
 });
