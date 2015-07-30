@@ -4,16 +4,9 @@ angular.module('quizPortalApp')
   .controller('ExamCtrl', function ($scope, Timer, $http, $stateParams, ngDialog, SweetAlert, $state, $rootScope) {
    
   // App Logic
-  var accept_terms;
+  var accept_terms, autosaver;
   $http.get('/api/exam/get/'+$stateParams.id).then(function(res){
   	$scope.exam = res.data;
-    
-    $scope.$watch('exam', function(newVal, oldVal){
-      if( $rootScope.theTimer ){
-        newVal.duration = $rootScope.theTimer.getSeconds();
-        $http.post('/api/exam/session', {exam: newVal});
-      }
-    }, true);
 
     Timer.Init($scope.exam.duration, function(){
       $scope.timeUp = true;
@@ -43,16 +36,21 @@ angular.module('quizPortalApp')
 
     accept_terms.closePromise.then(function(){
       Timer.Start();
+      autosaver = setInterval(function(){
+        $http.post('/api/exam/session', {exam: $scope.exam, duration: $rootScope.theTimer.getSeconds()});
+      }, 1000);
     });
 
   });
 
-  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 		accept_terms.close();
 	});
 
 
+
 	$scope.$on("$destroy", function(){
+    clearInterval(autosaver);
 		Timer.Cancel();
 	});
 

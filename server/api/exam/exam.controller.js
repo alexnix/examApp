@@ -37,6 +37,7 @@ exports.fromSession = function(req, res, next) {
 };
 
 exports.updateSession = function(req, res) {
+  req.body.exam.duration = req.body.duration;
   db.sessions.update({user_id:req.user._id, exam_id:req.body.exam._id}, {$set: {exam:req.body.exam}}, function(err, doc){
     res.status(200).send();
   });
@@ -85,7 +86,7 @@ exports.submitExam = function(req, res, next) {
 
     // Absolute score
     doc.questions.forEach(function(question){
-      var ok = true;
+      var ok = true, wasCheckd = false;
       index.option = -1;
       index.question = index.question + 1;
       req.body.results[index.question] = [];
@@ -95,6 +96,8 @@ exports.submitExam = function(req, res, next) {
           index.option ++;
           if( req.body.questions[index.question].options[index.option].value === undefined)
             req.body.questions[index.question].options[index.option].value = false;
+          if( req.body.questions[index.question].options[index.option].value )
+            wasCheckd = true;
           if ( option.isCorrect != req.body.questions[index.question].options[index.option].value )
             ok = false;
 
@@ -115,7 +118,8 @@ exports.submitExam = function(req, res, next) {
         req.body.results[index.question] = true;
         score = score + question.marks;
       } else {
-        score = score - question.marks_negative;
+        if( req.body.questions[index.question].ans || wasCheckd)
+          score = score - question.marks_negative;
       }
     });
 
