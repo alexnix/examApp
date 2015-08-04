@@ -49,7 +49,7 @@
 							Questions
 						</div>
 						<div class="col-xs-4">
-							{{category.questions}}
+							{{category.questions.length}}
 						</div>
 						<div class="col-xs-8 the-label">
 							Marks
@@ -100,7 +100,7 @@
 			<div class="card sm-card" ng-repeat="exam in user.exams |  orderBy: '-date'">
 
 				<div class="col-xs-3 sc-left">
-					<knob data-readOnly=true knob-data="{{ ((100*exam.score)/exam.total) > 0 ? (100*exam.score)/exam.total : 0}}" konb-options="options"></knob>
+					<knob data-readOnly=true knob-data="{{ ((100*exam.score)/exam.marks) > 0 ? (100*exam.score)/exam.marks : 0}}" konb-options="options"></knob>
 				</div>
 				<div class="col-xs-9">
 					<h5>
@@ -108,7 +108,7 @@
 						<small class="pull-right">{{exam.date | ago}}</small>
 					</h5>
 					<div class="clearfix"></div>
-					{{exam.score}} out of {{exam.total}}
+					{{exam.score}} out of {{exam.marks}}
 				</div>
 
 			</div>

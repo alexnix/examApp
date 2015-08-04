@@ -20,15 +20,15 @@ angular.module('quizPortalApp')
 
     $scope.user.exams.forEach(function(exam){
     	$scope.total_marks += exam.score;
-    	$scope.total_questions += exam.questions || 0;
+    	$scope.total_questions += exam.questions.length || 0;
 
     	var found = false;
     	$scope.categories.forEach(function(category, index, array){
     		if( category.name == exam.category ) {
     			found = true;
     			array[index].marks += exam.score;
-    			array[index].total += exam.total;
-    			array[index].questions += exam.questions; 
+    			array[index].total += exam.marsk;
+    			array[index].questions += exam.questions.length; 
     		}
     	});
 
@@ -36,7 +36,7 @@ angular.module('quizPortalApp')
 			$scope.categories.push({
 				name: exam.category,
 				marks: exam.score,
-				total: exam.total,
+				total: exam.marks,
 				questions: exam.questions,
 			});
 		}

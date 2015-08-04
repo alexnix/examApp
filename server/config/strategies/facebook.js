@@ -2,6 +2,10 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var db = require('../../db.js');
 
+var api_key = 'key-bce1518d20344bf928f9bde7ee319f5f';
+var domain = 'sandboxb97e4d9b715e4a638ab85489cb692e46.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+
 module.exports = function(){
 	passport.use(new FacebookStrategy({
 	    clientID: '278486295658221',
@@ -23,7 +27,15 @@ module.exports = function(){
 							badges: [],
 	      					}, 
 	      	function(err, user){
-	      		return done(null, user);
+	      		mailgun.messages().send({
+					from: 'TestBharat <noreply@testbharat.com>',
+					to: profile._json.email,
+					subject: "Wellcome",
+					html: 'Hello '+ profile.displayName +",<br/><br/> Wellcome to TestBharat.com ! Here you can test your skill across various tests and improve your career. Practice and score more !",
+				}, function (error, body) {
+					if(error) console.log(error); else console.log(body);
+	      			return done(null, user);
+				});
 	      	});
 	      else	
 	      	return done(null, user);

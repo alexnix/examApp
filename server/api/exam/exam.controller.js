@@ -141,15 +141,9 @@ exports.saveExam = function(req, res) {
 
     // daca nu l-a mai dat il saveaza
     if( attepts == 0 ) {
+      req.body.date = new Date().getTime();
       db.users.update({_id: req.user._id}, 
-        { $push: { exams: {_id: req.body._id, 
-                            name: req.body.name, 
-                            score: req.body.score, 
-                            total: req.body.marks, 
-                            date: new Date().getTime(), 
-                            category: req.body.category,
-                            questions: req.body.questions.length} 
-        } }, 
+        { $push: { exams:  req.body } }, 
         function(err, doc){        
           db.exams.update({_id: req.body._id}, {$set: {atendees: req.body.atendees + 1}}, function(err, doc){          
             if(res) res.status(200).send({results: req.body.results, score: req.body.score}); // trimite inapoi vectorul cu rezultate si scorul realativ
