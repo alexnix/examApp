@@ -31,6 +31,7 @@ angular.module('quizPortalApp')
             atendees: 0,
             instructions: [{}],
 	    	questions: [{
+                category: null,
 	    		text:'',
                 id: generateUUID(),
                 marks: 1,
@@ -67,6 +68,7 @@ angular.module('quizPortalApp')
     	$scope.exam.questions.push({
     		text:'',
             marks: 1,
+            category: null,
             marks_negative: 0,
             id: generateUUID(),
     		options: [

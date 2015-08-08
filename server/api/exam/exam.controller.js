@@ -177,6 +177,15 @@ exports.getQuestionsCorrect = function(req, resp){
   });
 };
 
+exports.getSummary = function(req, resp){
+  db.users.findOne({ _id: req.params.user }, function(err, doc){
+    doc.exams.forEach(function(exam){
+      if(exam._id == req.params.exam)
+        resp.status(200).send(exam);
+    });
+  });
+}
+
 
 function timer_cb(req) {
   db.exams.findOne({_id: req.body._id}, function(err, doc){

@@ -70,88 +70,35 @@ angular.module('quizPortalApp')
     return cont;
   };
 
+  function popit2(url) {
+    var newwindow=window.open(url,'name','height=500,width=500');
+    if (window.focus) {newwindow.resizeTo(1600, 1600); newwindow.focus();}
+    return false;
+  };
+
   $scope.submitExam = function(){
     if( !$scope.timeUp === true )
       if( ! confirm('Are you sure you want to finish exam ahead of time ?') )
         return false;
    
+    popit2(location.protocol + '//' + location.host + '/summary/'+$rootScope.User._id+'/'+$scope.exam._id); 
+    $scope.timeUp = true;
+    $http.post('/api/exam/submit', $scope.exam).then(function(res){
+      $rootScope.showCorrect = true;
+      console.log(res.data);
+      $scope.score = res.data.score;
+      $rootScope.results = results = res.data.results;
+      $scope.leResults = res.data
+      console.log(res.data);
 
+      $scope.contor = 0;
+      $rootScope.results.forEach(function(result){
+        if( result === true )
+          $scope.contor ++;
+      }); 
 
-    ngDialog.open({
-        template: "submit_template.html",
-        data: {
-          exam: $scope.exam,
-        },
-        controller: ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
-          //start dialog controller
-          $rootScope.theTimer.Cancel();
-          $rootScope.timeUp = true;
-
-
-          $scope.g = function() {
-            var shareUrl = location.protocol + '//' + location.host;
-            popit('https://plus.google.com/share?url='+shareUrl);
-          };
-
-          $scope.f = function() {
-            var shareUrl = location.protocol + '//' + location.host;
-            popit('https://www.facebook.com/sharer/sharer.php?u='+shareUrl);
-          };
-
-          $scope.l = function() {
-            var shareUrl = location.protocol + '//' + location.host;
-            popit('https://www.linkedin.com/shareArticle?mini=true&url='+shareUrl);
-          };
-
-          function popit(url) {
-            var newwindow=window.open(url,'name','height=500,width=500');
-            if (window.focus) {newwindow.focus()}
-            return false;
-          };
-
-
-          var today = new Date();
-          var dd = today.getDate();
-          var mm = today.getMonth()+1; //January is 0!
-
-          var yyyy = today.getFullYear();
-          if(dd<10){
-              dd='0'+dd
-          } 
-          if(mm<10){
-              mm='0'+mm
-          } 
-          $scope.today = dd+'/'+mm+'/'+yyyy;
-
-          $http.post('/api/exam/submit', $scope.ngDialogData.exam).then(function(res){
-            $rootScope.showCorrect = true;
-            console.log(res.data);
-            $scope.score = res.data.score;
-            $rootScope.results = results = res.data.results;
-            $scope.leResults = res.data
-            console.log(res.data);
-
-            $scope.contor = 0;
-            $rootScope.results.forEach(function(result){
-              if( result === true )
-                $scope.contor ++;
-            }); 
-
-          });
-
-
-          $scope.share = function(){
-            FB.ui(
-              {
-                method: 'share',
-                href: 'http://testbharat.com/',
-              }
-            );
-          };
-
-          //end dialog controller
-        }],
-      });
+  });
+ 
 
   };
 

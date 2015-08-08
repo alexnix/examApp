@@ -103,12 +103,24 @@
 					<knob data-readOnly=true knob-data="{{ ((100*exam.score)/exam.marks) > 0 ? (100*exam.score)/exam.marks : 0}}" konb-options="options"></knob>
 				</div>
 				<div class="col-xs-9">
-					<h5>
-						{{exam.name}}
-						<small class="pull-right">{{exam.date | ago}}</small>
-					</h5>
-					<div class="clearfix"></div>
-					{{exam.score}} out of {{exam.marks}}
+					<div class="col-xs-6">
+						<h5>	
+							{{exam.name}}
+							<div class="clearfix"></div>
+							{{exam.score}} out of {{exam.marks}}
+						</h5>
+					</div>
+					<div class="col-xs-6">
+						<small class="pull-right">{{exam.date | ago}}</small>						
+						<div class="clearfix"></div>
+						<small class="pull-right">
+							<a ui-sref="exam-summary({
+							user: User._id,
+							exam: exam._id,
+							fromProfile: true,
+							})">Details</a>
+						</small>
+					</div>
 				</div>
 
 			</div>
